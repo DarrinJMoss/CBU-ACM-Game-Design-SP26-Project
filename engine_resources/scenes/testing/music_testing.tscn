@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c2m2spllktp8j"]
+
+[ext_resource type="Script" uid="uid://chska2bsp17da" path="res://engine_resources/scripts/cs/testing/MusicTesting.cs" id="1_0ine0"]
+
+[node name="MusicTesting" type="Node" unique_id=932396433]
+script = ExtResource("1_0ine0")

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://du1hq21y2n3ho"]
+
+[ext_resource type="Texture2D" uid="uid://qqb2nvjxtl6x" path="res://streamed_assets/textures/ui/cursor_vhs.png" id="1_wyoc8"]
+[ext_resource type="Script" uid="uid://sr1tl284cdvy" path="res://engine_resources/scenes/Cursor.cs" id="1_ympmt"]
+
+[node name="Sprite2D" type="Node2D" unique_id=1676760579]
+z_index = 999
+z_as_relative = false
+script = ExtResource("1_ympmt")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1404628561]
+texture_filter = 1
+position = Vector2(-27, -36)
+texture = ExtResource("1_wyoc8")
+centered = false

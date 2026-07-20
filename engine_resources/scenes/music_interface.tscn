@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dnwh5ho3mbrfm"]
+
+[ext_resource type="Script" uid="uid://djgdadf3yison" path="res://engine_resources/scripts/cs/MusicInterface.cs" id="1_db7tq"]
+
+[node name="MusicInterface" type="Node" unique_id=32554531]
+script = ExtResource("1_db7tq")
