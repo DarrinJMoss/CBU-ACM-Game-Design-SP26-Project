@@ -48,6 +48,7 @@ public partial class UiManager : Node
 
     public UiContainer UiPop()
     {
+        _SanitizeStack();
         if (uiStack.Count <= 0)
         {
             return null;
@@ -56,23 +57,22 @@ public partial class UiManager : Node
     }
     public void UiPush(UiContainer ui)
     {
+        _SanitizeStack();
         uiStack.Push(ui);
     }
     public UiContainer UiPeek()
     {
+        _SanitizeStack();
         if (uiStack.Count <= 0)
         {
             return null;
         }
         UiContainer p = uiStack.Peek();
-        if (!GodotObject.IsInstanceValid(p))
-        {
-            return null;
-        }
         return p;
     }
     public bool IsInStack(UiContainer ui)
     {
+        _SanitizeStack();
         return uiStack.Contains(ui);
     }
     public void UiWipeStack()
@@ -81,11 +81,26 @@ public partial class UiManager : Node
     }
     public int GetStackSize()
     {
+        _SanitizeStack();
         return uiStack.Count;
     }
 
+    /// <summary>
+    /// Checks the topmost element of the UI stack and makes sure its valid.
+    /// Removes it if it is not.
+    /// </summary>
+    private void _SanitizeStack()
+    {
+        if (uiStack.Count <= 0) { return; }
+        UiContainer p = uiStack.Pop();
+        if (GodotObject.IsInstanceValid(p))
+        {
+            uiStack.Push(p);
+        }
+    }
     public List<string> GetStackNames()
     {
+        _SanitizeStack();
         List<string> returnList = new List<string>();
         foreach (UiContainer ui in this.uiStack)
         {

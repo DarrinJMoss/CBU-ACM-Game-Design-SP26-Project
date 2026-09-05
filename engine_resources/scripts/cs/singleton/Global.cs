@@ -10,7 +10,9 @@ public partial class Global : Node
         LV2_ICE,
         LV3_SLIME,
         LV4_BOUNCE,
-        LV5_CANNONS
+        LV5_CANNONS,
+        TESTING_LEVEL,
+        FINAL_CORRIDOR,
     }
     public static Global i = null;
 

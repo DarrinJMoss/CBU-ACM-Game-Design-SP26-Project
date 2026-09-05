@@ -51,7 +51,7 @@ public partial class Cannon : Node2D
 		try
 		{
 			barrelPivot = GetNode<Node2D>("BarrelPivot");
-			GD.Print("Found BarrelPivot: " + barrelPivot.Name);
+			//GD.Print("Found BarrelPivot: " + barrelPivot.Name);
 			// Lower the pivot point
 			barrelPivot.Position = new Vector2(barrelPivot.Position.X, BarrelPivotYOffset);
 		}

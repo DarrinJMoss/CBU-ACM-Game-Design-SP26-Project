@@ -73,13 +73,33 @@ metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
 script = ExtResource("5_trf5k")
 metadata/_custom_type_script = "uid://cpy7hdwj136w"
 
-[sub_resource type="Resource" id="Resource_r1m44"]
+[sub_resource type="Resource" id="Resource_n71kw"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_7h18h"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_rd41c"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_vn32s"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_8phqg"]
 script = ExtResource("7_vwcvq")
 metadata/_custom_type_script = "uid://dn8c35njbtjtx"
 
 [sub_resource type="Resource" id="Resource_oc4jn"]
 script = ExtResource("5_trf5k")
 metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_r1m44"]
+script = ExtResource("7_vwcvq")
+metadata/_custom_type_script = "uid://dn8c35njbtjtx"
 
 [sub_resource type="Resource" id="Resource_ume8s"]
 script = ExtResource("5_trf5k")
@@ -420,7 +440,6 @@ behavior = SubResource("Resource_3b8g6")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="LevelSelect" type="Control" parent="MenuRoots" unique_id=544046306]
-visible = false
 texture_filter = 1
 anchors_preset = 0
 offset_right = 40.0
@@ -496,7 +515,7 @@ autowrap_mode = 0
 script = ExtResource("4_ume8s")
 Manager = NodePath("../..")
 buttonText = "Stage 2 - Ice"
-behavior = SubResource("Resource_vwcvq")
+behavior = SubResource("Resource_n71kw")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Levels_3" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=101130336 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
@@ -517,7 +536,7 @@ autowrap_mode = 0
 script = ExtResource("4_ume8s")
 Manager = NodePath("../..")
 buttonText = "Stage 3 - Slime"
-behavior = SubResource("Resource_vwcvq")
+behavior = SubResource("Resource_7h18h")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Levels_4" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=1439389343 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
@@ -538,7 +557,7 @@ autowrap_mode = 0
 script = ExtResource("4_ume8s")
 Manager = NodePath("../..")
 buttonText = "Stage 4 - Bounce"
-behavior = SubResource("Resource_vwcvq")
+behavior = SubResource("Resource_rd41c")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Levels_5" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=747161780 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
@@ -559,7 +578,7 @@ autowrap_mode = 0
 script = ExtResource("4_ume8s")
 Manager = NodePath("../..")
 buttonText = "Stage 5 - Cannons"
-behavior = SubResource("Resource_vwcvq")
+behavior = SubResource("Resource_vn32s")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Settings_Return" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=1831033742 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
@@ -580,7 +599,7 @@ autowrap_mode = 0
 script = ExtResource("4_ume8s")
 Manager = NodePath("../..")
 buttonText = "Return"
-behavior = SubResource("Resource_r1m44")
+behavior = SubResource("Resource_8phqg")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Settings" type="Control" parent="MenuRoots" unique_id=191230503]

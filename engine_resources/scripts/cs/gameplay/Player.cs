@@ -461,7 +461,7 @@ public partial class Player : CharacterBody2D
         if (launchBoostTimer > 0 && curVel.Length() < 500f)
         {
             launchBoostTimer = 0f;
-            GD.Print("[LAUNCH] Velocity dropped below 500, ending launch boost");
+            //GD.Print("[LAUNCH] Velocity dropped below 500, ending launch boost");
         }
 
         if (preVel.X != 0.0f)
@@ -484,7 +484,7 @@ public partial class Player : CharacterBody2D
             PCamRef.SetShake(LAND_SHAKE_AMNT, LAND_SHAKE_DAMPING);
             if (preVelSlam.Y > 0.0f) // Floor
             {
-                GD.Print(OneshotParticleManager.i);
+                //GD.Print(OneshotParticleManager.i);
                 OneshotParticleManager.i.SpawnParticleAsChild(OneshotParticleManager.ParticleTypes.LAND_JUMP, this, new Vector2(0.0f, 8.0f), GetFloorAngle(), 5);
             }
             else
@@ -747,7 +747,7 @@ public partial class Player : CharacterBody2D
             return;
         }
         StringName animation = Anim.CurrentAnimation;
-        GD.Print(_GetAnimSuffix(animation));
+        //GD.Print(_GetAnimSuffix(animation));
         if (_GetAnimPrefix(animation) != curAnim)
         {
             if (cutoffEn)
