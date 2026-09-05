@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dw37axs3t5r6y"]
+
+[ext_resource type="Texture2D" uid="uid://bls4bpkra22d0" path="res://streamed_assets/textures/level_elements/variable_wall_base.png" id="1_5sw5k"]
+[ext_resource type="Script" uid="uid://bbmrrlws7h4iv" path="res://engine_resources/scripts/cs/level_elements/VariableWall.cs" id="2_82x52"]
+
+[node name="VariableWall" type="TextureRect" unique_id=618102656 node_paths=PackedStringArray("Hitbox", "Body")]
+texture_filter = 1
+offset_right = 16.0
+offset_bottom = 16.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_5sw5k")
+stretch_mode = 1
+script = ExtResource("2_82x52")
+Hitbox = NodePath("StaticBody2D/CollisionShape2D")
+Body = NodePath("StaticBody2D")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1323902214]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=990054781]

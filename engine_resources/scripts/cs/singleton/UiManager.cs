@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class UiManager : Node
 {
@@ -7,6 +8,8 @@ public partial class UiManager : Node
     public static UiManager i;
 
     private Stack<UiContainer> uiStack = new Stack<UiContainer>();
+
+    public UiContainer targetedUi = null;
 
     public bool isKeyboardMode = false;
 
@@ -61,7 +64,12 @@ public partial class UiManager : Node
         {
             return null;
         }
-        return uiStack.Peek();
+        UiContainer p = uiStack.Peek();
+        if (!GodotObject.IsInstanceValid(p))
+        {
+            return null;
+        }
+        return p;
     }
     public bool IsInStack(UiContainer ui)
     {
@@ -74,6 +82,17 @@ public partial class UiManager : Node
     public int GetStackSize()
     {
         return uiStack.Count;
+    }
+
+    public List<string> GetStackNames()
+    {
+        List<string> returnList = new List<string>();
+        foreach (UiContainer ui in this.uiStack)
+        {
+            returnList.Add(ui.Name);
+        }
+        returnList.Reverse();
+        return returnList;
     }
 
     public bool KeyboardModeEnabled()

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bnwnlnndu4k0t"]
+
+[ext_resource type="Script" uid="uid://fgb3jueeuwe0" path="res://engine_resources/scripts/cs/level_elements/Cannon.cs" id="1_ihqgp"]
+[ext_resource type="Texture2D" uid="uid://cks2btghxdadd" path="res://streamed_assets/textures/level_elements/canon2.png" id="2_sy2mt"]
+[ext_resource type="Texture2D" uid="uid://cnnfbd5jpbed1" path="res://streamed_assets/textures/level_elements/pivot2.png" id="3_opill"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sy2mt"]
+radius = 14.5
+
+[node name="Cannon" type="Node2D" unique_id=76067497]
+script = ExtResource("1_ihqgp")
+BarrelPivotYOffset = 0.0
+BarrelRotationOffset = 0.0
+
+[node name="BarrelPivot" type="Node2D" parent="." unique_id=650856122]
+
+[node name="CannonSprite" type="Sprite2D" parent="BarrelPivot" unique_id=1931807941]
+texture_filter = 1
+texture = ExtResource("2_sy2mt")
+offset = Vector2(16, -4)
+
+[node name="Rc" type="RayCast2D" parent="BarrelPivot" unique_id=1342133532]
+target_position = Vector2(5280, 0)
+
+[node name="EnterArea" type="Area2D" parent="." unique_id=185313647]
+scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnterArea" unique_id=1676657767]
+position = Vector2(0, -1.5)
+shape = SubResource("CircleShape2D_sy2mt")
+
+[node name="PivotSprite" type="Sprite2D" parent="." unique_id=267333752]
+texture_filter = 1
+texture = ExtResource("3_opill")

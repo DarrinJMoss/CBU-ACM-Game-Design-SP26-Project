@@ -1,18 +1,20 @@
 [gd_scene format=3 uid="uid://dpn3ahm1aun01"]
 
 [ext_resource type="Shader" uid="uid://dhe5iqo421pga" path="res://engine_resources/shaders/vhs.gdshader" id="1_6dfhi"]
-[ext_resource type="Texture2D" uid="uid://d3ubqtb6ra7vw" path="res://streamed_assets/textures/testing/testscreenshot.png" id="1_fp4xk"]
 [ext_resource type="Script" uid="uid://bb5idlo0d81mv" path="res://engine_resources/scripts/cs/ui/PauseMenu.cs" id="1_roeji"]
 [ext_resource type="FontFile" uid="uid://bm2q8yphoflv7" path="res://streamed_assets/font/VHSish.otf" id="4_10jqi"]
 [ext_resource type="Script" uid="uid://citnshwcy0kb1" path="res://engine_resources/scripts/cs/ui/UiContainer.cs" id="5_86va0"]
-[ext_resource type="PackedScene" uid="uid://du1hq21y2n3ho" path="res://engine_resources/scenes/cursor.tscn" id="5_v527p"]
+[ext_resource type="Script" uid="uid://cqt4ji4c285nr" path="res://engine_resources/scripts/cs/ui/TextButton.cs" id="7_5f0ee"]
 [ext_resource type="Script" uid="uid://djgdadf3yison" path="res://engine_resources/scripts/cs/MusicInterface.cs" id="7_qi3dd"]
+[ext_resource type="Script" uid="uid://nh4fy6j0v0sm" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbChangeMenu.cs" id="8_aop3b"]
+[ext_resource type="Script" uid="uid://cpy7hdwj136w" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbEmitSignal.cs" id="9_aop3b"]
+[ext_resource type="Script" uid="uid://dn8c35njbtjtx" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbPopMenu.cs" id="9_dc7lj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fp4xk"]
 shader = ExtResource("1_6dfhi")
 shader_parameter/brightness = 0.800000038
-shader_parameter/contrast = 1.5000000712500001
-shader_parameter/saturation = 1.5400000731499999
+shader_parameter/contrast = 1.50000007125
+shader_parameter/saturation = 1.54000007315
 shader_parameter/gamma = 1.11200004630023
 shader_parameter/curvature = 0.10000000475
 shader_parameter/corner_soften = 0.20000000298023
@@ -34,14 +36,43 @@ shader_parameter/glow_strength = 0.25
 shader_parameter/glow_threshold = 0.65
 shader_parameter/alpha = 1.0
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=948364920]
+[sub_resource type="Resource" id="Resource_aop3b"]
+script = ExtResource("9_aop3b")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_1knoa"]
+script = ExtResource("8_aop3b")
+targetMenuPath = NodePath("../../../Settings")
+metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
+
+[sub_resource type="Resource" id="Resource_bhgud"]
+script = ExtResource("8_aop3b")
+targetMenuPath = NodePath("../../../Quit")
+metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
+
+[sub_resource type="Resource" id="Resource_cqtc2"]
+script = ExtResource("9_aop3b")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_dc7lj"]
+script = ExtResource("9_aop3b")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_ekjmd"]
+script = ExtResource("9_dc7lj")
+metadata/_custom_type_script = "uid://dn8c35njbtjtx"
+
+[sub_resource type="Resource" id="Resource_nkmlv"]
+script = ExtResource("9_aop3b")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_5f0ee"]
+script = ExtResource("9_dc7lj")
+metadata/_custom_type_script = "uid://dn8c35njbtjtx"
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=948364920]
 process_mode = 3
 script = ExtResource("1_roeji")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1383540865]
-texture_filter = 1
-texture = ExtResource("1_fp4xk")
-centered = false
 
 [node name="CrtShaderRect" type="ColorRect" parent="." unique_id=2045997687]
 unique_name_in_owner = true
@@ -49,26 +80,18 @@ visible = false
 material = SubResource("ShaderMaterial_fp4xk")
 offset_right = 1280.0
 offset_bottom = 720.0
+mouse_filter = 2
 
-[node name="Sprite2D2" parent="." unique_id=1676760579 instance=ExtResource("5_v527p")]
-
-[node name="PauseRoot" type="Control" parent="." unique_id=54507766]
+[node name="PauseHeaderTxt" type="RichTextLabel" parent="." unique_id=271009657]
 unique_name_in_owner = true
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("5_86va0")
-
-[node name="PauseHeaderTxt" type="RichTextLabel" parent="PauseRoot" unique_id=271009657]
-unique_name_in_owner = true
+visible = false
 texture_filter = 1
 clip_contents = false
-layout_mode = 0
 offset_left = 72.0
 offset_top = 129.0
 offset_right = 1237.0
 offset_bottom = 336.0
+mouse_filter = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_outline_size = 0
 theme_override_constants/shadow_offset_x = 3
@@ -76,11 +99,253 @@ theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/normal_font = ExtResource("4_10jqi")
 theme_override_font_sizes/normal_font_size = 69
 bbcode_enabled = true
-text = "[color=yellow]PAUSED > [/color][color=orange]SETTINGS >"
+text = "[color=yellow]PAUSED > [/color][color=orange] SETTINGS >"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
+
+[node name="PauseRoot" type="Control" parent="." unique_id=54507766]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("5_86va0")
+
+[node name="MainContainer" type="VBoxContainer" parent="PauseRoot" unique_id=1528692756]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 264.0
+offset_right = 387.0
+offset_bottom = 441.0
+mouse_filter = 2
+
+[node name="Main_Return" type="RichTextLabel" parent="PauseRoot/MainContainer" unique_id=1471492594 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Return"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Return"
+behavior = SubResource("Resource_aop3b")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_GotoSettings" type="RichTextLabel" parent="PauseRoot/MainContainer" unique_id=92648994 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Settings"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Settings"
+behavior = SubResource("Resource_1knoa")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_Quit" type="RichTextLabel" parent="PauseRoot/MainContainer" unique_id=946522133 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Quit to Title"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Quit to Title"
+behavior = SubResource("Resource_bhgud")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_DbgSuicide" type="RichTextLabel" parent="PauseRoot/MainContainer" unique_id=1620035699 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Suicide (dbg)"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Suicide (dbg)"
+behavior = SubResource("Resource_cqtc2")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Settings" type="Control" parent="." unique_id=1133142525]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("5_86va0")
+metadata/_custom_type_script = "uid://citnshwcy0kb1"
+
+[node name="SettingsContainer" type="VBoxContainer" parent="Settings" unique_id=1599774534]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 264.0
+offset_right = 819.0
+offset_bottom = 441.0
+mouse_filter = 2
+
+[node name="Settings_MusicToggle" type="RichTextLabel" parent="Settings/SettingsContainer" unique_id=1471583849 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Music ON"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Music ON"
+behavior = SubResource("Resource_dc7lj")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Settings_Return" type="RichTextLabel" parent="Settings/SettingsContainer" unique_id=1081423253 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Return"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Return"
+behavior = SubResource("Resource_ekjmd")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Quit" type="Control" parent="." unique_id=936614344]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("5_86va0")
+metadata/_custom_type_script = "uid://citnshwcy0kb1"
+
+[node name="Header" type="RichTextLabel" parent="Quit" unique_id=541622370]
+texture_filter = 1
+clip_contents = false
+layout_mode = 0
+offset_left = 504.0
+offset_top = 264.0
+offset_right = 1144.0
+offset_bottom = 471.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "[color=yellow]Quit to title?"
+horizontal_alignment = 1
+
+[node name="AysContainer" type="VBoxContainer" parent="Quit" unique_id=1023421489]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 333.0
+offset_right = 1120.0
+offset_bottom = 510.0
+mouse_filter = 2
+
+[node name="Ays_Yes" type="RichTextLabel" parent="Quit/AysContainer" unique_id=807550436 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Yes"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "Yes"
+behavior = SubResource("Resource_nkmlv")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Ays_No" type="RichTextLabel" parent="Quit/AysContainer" unique_id=1223327700 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("4_10jqi")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "No"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("7_5f0ee")
+Manager = NodePath("../..")
+buttonText = "No"
+behavior = SubResource("Resource_5f0ee")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="MusicInterface" type="Node" parent="." unique_id=1807192587]
 script = ExtResource("7_qi3dd")
-curTrack = 2
+curTrack = 1
 metadata/_custom_type_script = "uid://djgdadf3yison"

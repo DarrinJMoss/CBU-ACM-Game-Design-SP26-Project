@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://jtq13ag0ggdr"]
+
+[ext_resource type="PackedScene" uid="uid://dw37axs3t5r6y" path="res://engine_resources/scenes/level_elements/variable_wall.tscn" id="1_rdfk3"]
+[ext_resource type="Script" uid="uid://xqps38ddhnhk" path="res://engine_resources/scripts/cs/level_elements/Portal.cs" id="2_343sx"]
+[ext_resource type="Texture2D" uid="uid://dh3maoby3aw33" path="res://streamed_assets/textures/level_elements/portal_temp.png" id="2_722ab"]
+
+
+[node name="Portal" unique_id=618102656 node_paths=PackedStringArray("UnusedBody", "Hitbox", "Body") instance=ExtResource("1_rdfk3")]
+texture = ExtResource("2_722ab")
+script = ExtResource("2_343sx")
+UnusedBody = NodePath("StaticBody2D")
+resetVelocity = false
+resetFuel = false
+Hitbox = NodePath("Area2D/CollisionShape2D")
+Body = NodePath("Area2D")
+mask = 4
+layer = 0
+
+[node name="Area2D" type="Area2D" parent="." index="1" unique_id=551382753]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0" unique_id=471499484]
+debug_color = Color(0.96566886, 0, 0.48821926, 0.41960785)

@@ -6,20 +6,37 @@ public partial class MusicInterface : Node
 {
     [Export]
     public MusicManager.Tracks      curTrack         = MusicManager.Tracks.SILENT;
+    [Export]
+    private bool                    deferStart      = false;
 
     private int                     failureCount    = 0;
 
     public override void _Ready()
     {
-        if (MusicManager.i == null)
+        if (!deferStart)
         {
-            // Initialization failed
-            Global.LogWarning("MusicInterface._Process()", "engine_resources/scripts/cs/MusicInterface.cs", $"Could not change track due to MusicManager instance being null. Attempting to change it on the following frame.");
-            return;
+            if (MusicManager.i == null)
+            {
+                // Initialization failed
+                Global.LogWarning("MusicInterface._Process()", "engine_resources/scripts/cs/MusicInterface.cs", $"Could not change track due to MusicManager instance being null. Attempting to change it on the following frame.");
+                return;
+            }
+            MusicManager.i.ChangeTrack(curTrack);
+            this.QueueFree();
+            this.SetProcess(false);
         }
-        MusicManager.i.ChangeTrack(curTrack);
-        this.QueueFree();
-        this.SetProcess(false);
+        else
+        {
+            if (MusicManager.i == null)
+            {
+                // Initialization failed
+                Global.LogWarning("MusicInterface._Process()", "engine_resources/scripts/cs/MusicInterface.cs", $"Could not change track due to MusicManager instance being null. Attempting to change it on the following frame.");
+                return;
+            }
+            MusicManager.i.ChangeTrack(MusicManager.Tracks.SILENT);
+            this.SetProcess(false);
+        }
+
     }
 
     // If initialization fails, we try again every frame until it works.
@@ -27,10 +44,26 @@ public partial class MusicInterface : Node
     // the developer until they fix it.
     public override void _Process(double delta)
     {
+        if (!deferStart)
+        {
+            if (MusicManager.i == null)
+            {
+                failureCount++;
+                Global.LogError("MusicInterface._Process()", "engine_resources/scripts/cs/MusicInterface.cs", $"Could not change track due to MusicManager instance being null after defaulting to process changing. Failure Count: {failureCount}");
+                return;
+            }
+            MusicManager.i.ChangeTrack(curTrack);
+            this.QueueFree();
+            this.SetProcess(false);
+        }
+    }
+
+    public void StartMusic()
+    {
         if (MusicManager.i == null)
         {
-            failureCount++;
-            Global.LogError("MusicInterface._Process()", "engine_resources/scripts/cs/MusicInterface.cs", $"Could not change track due to MusicManager instance being null after defaulting to process changing. Failure Count: {failureCount}");
+            // Initialization failed
+            Global.LogWarning("MusicInterface._Process()", "engine_resources/scripts/cs/MusicInterface.cs", $"Could not change track due to MusicManager instance being null. Attempting to change it on the following frame.");
             return;
         }
         MusicManager.i.ChangeTrack(curTrack);

@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class PauseMenu : CanvasLayer
 {
@@ -32,13 +33,13 @@ public partial class PauseMenu : CanvasLayer
 
     private RichTextLabel       PauseHeaderTxt                      = null;
     const   float               PAUSE_HEADER_TXT_LERP_WEIGHT        = 10.0f;
-    const   float               PAUSE_HEADER_TXT_SHIFT_AMOUNT       = -96.0f;
+    const   float               PAUSE_HEADER_TXT_SHIFT_AMOUNT       = 64.0f;
     private Vector2             _pauseHeaderTxt_posBase             = new Vector2(72.0f, 129.0f);
     private Vector2             _pauseHeaderTxt_posOffset           = Vector2.Zero;
     private Vector2             _pauseHeaderTxt_posOffset_Target    = Vector2.Zero;
 
 
-    private Control             PauseRoot                           = null;
+    private UiContainer         PauseRoot                           = null;
     const float                 PAUSE_LERP_WEIGHT                   = 15.0f;
     const float                 PAUSE_ROOT_INIT_OFFSET_X            = -64.0f;
     private Vector2             _pauseRoot_posOffset                = Vector2.Zero;
@@ -48,9 +49,20 @@ public partial class PauseMenu : CanvasLayer
 	public override void _Ready()
     {
         ShaderRect      = GetNode<ColorRect>("%CrtShaderRect");
-        PauseRoot       = GetNode<Control>("%PauseRoot");
+        PauseRoot       = GetNode<UiContainer>("%PauseRoot");
         PauseHeaderTxt  = GetNode<RichTextLabel>("%PauseHeaderTxt");
         PauseRoot.Hide();
+        PauseHeaderTxt.Hide();
+
+        // Link every button to this script
+        foreach (Node button in GetTree().GetNodesInGroup("Buttons"))
+        {
+            if (button is TextButton tb)
+            {
+                GD.Print(button.Name);
+                tb.TbPressed += _ButtonPressed;
+            }
+        }
     }
 
     public override void _Input(InputEvent @event)
@@ -61,15 +73,19 @@ public partial class PauseMenu : CanvasLayer
             {
                 // CLOSE MENU
                 GetTree().Paused = false;
-                PauseRoot.Hide();
+                PauseHeaderTxt.Hide();
+                UiManager.i.UiWipeStack();
             }
             else
             {
                 // OPEN MENU
                 GetTree().Paused = true;
-                PauseRoot.Show();
                 _pauseHeaderTxt_posOffset = new Vector2(PAUSE_ROOT_INIT_OFFSET_X, 0.0f);
                 _pauseHeaderTxt_posOffset_Target = Vector2.Zero;
+
+                PauseHeaderTxt.Show();
+
+                UiManager.i.UiPush(PauseRoot);
             }
         }
     }
@@ -112,6 +128,87 @@ public partial class PauseMenu : CanvasLayer
 
         _pauseHeaderTxt_posOffset = _pauseHeaderTxt_posOffset.Lerp(_pauseHeaderTxt_posOffset_Target, PAUSE_HEADER_TXT_LERP_WEIGHT * Global.i.GetClampedDelta_PR());
 
+        int uiStackSize = UiManager.i.GetStackSize();
+        string pauseHeaderTxt_Text = "";
+        if (uiStackSize <= 1)
+        {
+            pauseHeaderTxt_Text = "[color=yellow]PAUSED > [/color]";
+        }
+        else
+        {
+            pauseHeaderTxt_Text = "[color=orange]PAUSED > [/color]";
+            List<string> names = UiManager.i.GetStackNames();
+            foreach (string name in names)
+            {
+                uiStackSize--;
+                if (name != this.PauseRoot.Name)
+                {
+                    if (uiStackSize <= 0)
+                    {
+                        pauseHeaderTxt_Text = $"{pauseHeaderTxt_Text} [color=yellow]{name.ToUpper()} > [/color]";
+                    }
+                    else
+                    {
+                        pauseHeaderTxt_Text = $"{pauseHeaderTxt_Text} [color=orange]{name.ToUpper()} > [/color]";
+                    }
+                }
+
+            }
+        }
+
+        if (UiManager.i.targetedUi != null)
+        {
+            string name = UiManager.i.targetedUi.Name;
+            pauseHeaderTxt_Text = $"{pauseHeaderTxt_Text} [color=orange]{name.ToUpper()}[/color]";
+        }
+
+        PauseHeaderTxt.Text = pauseHeaderTxt_Text;
+        
+
         #endregion
     }   
+
+
+    private void _ButtonPressed(string caller, string[] args)
+    {
+        
+        switch (caller)
+        {
+            // Menu
+            case "Main_Return":
+                // CLOSE MENU
+                GetTree().Paused = false;
+                PauseHeaderTxt.Hide();
+                UiManager.i.UiWipeStack();
+
+                break;
+            
+            case "Main_DbgSuicide":
+                // CLOSE MENU
+                GetTree().Paused = false;
+                PauseHeaderTxt.Hide();
+                UiManager.i.UiWipeStack();
+
+                Global.i.PlayerRef.Die();
+
+                break;
+            
+            case "Ays_Yes":
+                // CLOSE MENU
+                GetTree().Paused = false;
+                PauseHeaderTxt.Hide();
+                UiManager.i.UiWipeStack();
+
+                //Global.i.PlayerRef.Er
+
+                GetTree().ChangeSceneToFile("res://engine_resources/scenes/title.tscn");
+
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
 }

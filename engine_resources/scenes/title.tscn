@@ -1,0 +1,752 @@
+[gd_scene format=3 uid="uid://bc5q0da2bo40t"]
+
+[ext_resource type="Shader" uid="uid://dhe5iqo421pga" path="res://engine_resources/shaders/vhs.gdshader" id="1_qeggv"]
+[ext_resource type="Script" uid="uid://bmnjv80ciwsb3" path="res://engine_resources/scripts/cs/ui/Title.cs" id="1_quxev"]
+[ext_resource type="FontFile" uid="uid://bm2q8yphoflv7" path="res://streamed_assets/font/VHSish.otf" id="2_c5xkf"]
+[ext_resource type="Script" uid="uid://citnshwcy0kb1" path="res://engine_resources/scripts/cs/ui/UiContainer.cs" id="3_quxev"]
+[ext_resource type="Shader" uid="uid://bkm83btr52xtj" path="res://engine_resources/shaders/logo_distortion.gdshader" id="3_ume8s"]
+[ext_resource type="Script" uid="uid://cqt4ji4c285nr" path="res://engine_resources/scripts/cs/ui/TextButton.cs" id="4_ume8s"]
+[ext_resource type="Script" uid="uid://cpy7hdwj136w" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbEmitSignal.cs" id="5_trf5k"]
+[ext_resource type="Script" uid="uid://nh4fy6j0v0sm" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbChangeMenu.cs" id="6_3b8g6"]
+[ext_resource type="Texture2D" uid="uid://dj8dkm4anl804" path="res://external/logo.svg" id="7_c5xkf"]
+[ext_resource type="Script" uid="uid://dn8c35njbtjtx" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbPopMenu.cs" id="7_vwcvq"]
+[ext_resource type="Script" uid="uid://djgdadf3yison" path="res://engine_resources/scripts/cs/MusicInterface.cs" id="8_g3t4m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n71kw"]
+shader = ExtResource("1_qeggv")
+shader_parameter/brightness = 0.800000038
+shader_parameter/contrast = 1.50000007125
+shader_parameter/saturation = 1.54000007315
+shader_parameter/gamma = 1.11200004630023
+shader_parameter/curvature = 0.10000000475
+shader_parameter/corner_soften = 0.20000000298023
+shader_parameter/vignette = 0.26400001254
+shader_parameter/scanline_strength = 0.95
+shader_parameter/scanline_density = 0.8080000146299999
+shader_parameter/interlace_strength = 0.2
+shader_parameter/mask_strength = 0.22
+shader_parameter/mask_scale = 2.6150001004625
+shader_parameter/chroma_offset_px = 3.0000001425
+shader_parameter/luma_smear_px = 6.59600031331
+shader_parameter/jitter_px = 0.6570000312075
+shader_parameter/wobble_px = 1.2810000608475
+shader_parameter/tape_noise = 0.1870000088825
+shader_parameter/tape_lines = 0.438000020805
+shader_parameter/roll_speed = 0.77600003686
+shader_parameter/roll_strength = 0.3210000152475
+shader_parameter/glow_strength = 0.25
+shader_parameter/glow_threshold = 0.65
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ume8s"]
+shader = ExtResource("3_ume8s")
+shader_parameter/chromaticAbStrength = 100.0
+shader_parameter/alpha = 0.0
+shader_parameter/sineStren = 1.0
+shader_parameter/time = 0.0
+shader_parameter/ECHO_CNT = 16.31
+
+[sub_resource type="Resource" id="Resource_c5xkf"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_g3t4m"]
+script = ExtResource("6_3b8g6")
+targetMenuPath = NodePath("../../../LevelSelect")
+metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
+
+[sub_resource type="Resource" id="Resource_qeggv"]
+script = ExtResource("6_3b8g6")
+targetMenuPath = NodePath("../../../Settings")
+metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
+
+[sub_resource type="Resource" id="Resource_quxev"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_3b8g6"]
+script = ExtResource("6_3b8g6")
+targetMenuPath = NodePath("../../../QuitAYS")
+metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
+
+[sub_resource type="Resource" id="Resource_vwcvq"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_r1m44"]
+script = ExtResource("7_vwcvq")
+metadata/_custom_type_script = "uid://dn8c35njbtjtx"
+
+[sub_resource type="Resource" id="Resource_oc4jn"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_ume8s"]
+script = ExtResource("5_trf5k")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_trf5k"]
+script = ExtResource("7_vwcvq")
+metadata/_custom_type_script = "uid://dn8c35njbtjtx"
+
+[sub_resource type="Animation" id="Animation_trf5k"]
+resource_name = "FlickOn"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MenuRoots:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MenuRoots:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-40, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_quxev"]
+resource_name = "Intro"
+length = 2.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:material:shader_parameter/sineStren")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 1.2),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [0.5, 0.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:material:shader_parameter/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 1.2),
+"transitions": PackedFloat32Array(0.45062566, 0.45062566, 1),
+"update": 0,
+"values": [0.0, 0.0, 11.51]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Logo:material:shader_parameter/chromaticAbStrength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 2.2),
+"transitions": PackedFloat32Array(0.5, 0.5, 1),
+"update": 0,
+"values": [100.0, 100.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Logo:material:shader_parameter/alpha")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.70000005),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Logo:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 1.2, 2.2),
+"transitions": PackedFloat32Array(1, 1, -3.4822013, 1),
+"update": 0,
+"values": [Vector2(640, 360), Vector2(640, 360), Vector2(640, 360), Vector2(640, 135)]
+}
+
+[sub_resource type="Animation" id="Animation_ume8s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:material:shader_parameter/sineStren")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:material:shader_parameter/time")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Logo:material:shader_parameter/chromaticAbStrength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Logo:material:shader_parameter/alpha")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Logo:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 135)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MenuRoots:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MenuRoots:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-40, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_trf5k"]
+_data = {
+&"FlickOn": SubResource("Animation_trf5k"),
+&"Intro": SubResource("Animation_quxev"),
+&"RESET": SubResource("Animation_ume8s")
+}
+
+[node name="TitleScreen" type="CanvasLayer" unique_id=617590764]
+script = ExtResource("1_quxev")
+
+[node name="CrtShaderRect" type="ColorRect" parent="." unique_id=162992805]
+material = SubResource("ShaderMaterial_n71kw")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="Logo" type="Sprite2D" parent="." unique_id=1471408411]
+material = SubResource("ShaderMaterial_ume8s")
+position = Vector2(640, 135)
+scale = Vector2(0.71, 0.71)
+texture = ExtResource("7_c5xkf")
+
+[node name="MenuRoots" type="Control" parent="." unique_id=836572890]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -40.0
+offset_bottom = 40.0
+
+[node name="Menu" type="Control" parent="MenuRoots" unique_id=1036740405]
+visible = false
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("3_quxev")
+
+[node name="MainContainer" type="VBoxContainer" parent="MenuRoots/Menu" unique_id=405641566]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 338.0
+offset_right = 624.0
+offset_bottom = 699.0
+mouse_filter = 2
+
+[node name="Main_NewGame" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=437854101 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "New Game"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "New Game"
+behavior = SubResource("Resource_c5xkf")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_LevelSelect" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=919777232 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Level Select"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Level Select"
+behavior = SubResource("Resource_g3t4m")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_Settings" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=1704859542 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Settings"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Settings"
+behavior = SubResource("Resource_qeggv")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_Credits" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=979522707 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Credits"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Credits"
+behavior = SubResource("Resource_quxev")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Main_Quit" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=1963912072 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Quit Game"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Quit Game"
+behavior = SubResource("Resource_3b8g6")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="LevelSelect" type="Control" parent="MenuRoots" unique_id=544046306]
+visible = false
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("3_quxev")
+metadata/_custom_type_script = "uid://citnshwcy0kb1"
+
+[node name="Header" type="RichTextLabel" parent="MenuRoots/LevelSelect" unique_id=1421218943]
+texture_filter = 1
+clip_contents = false
+layout_mode = 0
+offset_left = 640.0
+offset_top = 264.0
+offset_right = 1280.0
+offset_bottom = 471.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "[color=yellow]- LEVEL SELECT -"
+horizontal_alignment = 1
+
+[node name="LevelsContainer" type="VBoxContainer" parent="MenuRoots/LevelSelect" unique_id=33705776]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 337.0
+offset_right = 1256.0
+offset_bottom = 514.0
+mouse_filter = 2
+theme_override_constants/separation = -8
+
+[node name="Levels_1" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=1275571711 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Stage 1 - Facility"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Stage 1 - Facility"
+behavior = SubResource("Resource_vwcvq")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Levels_2" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=1395065110 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Stage 2 - Ice"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Stage 2 - Ice"
+behavior = SubResource("Resource_vwcvq")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Levels_3" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=101130336 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Stage 3 - Slime"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Stage 3 - Slime"
+behavior = SubResource("Resource_vwcvq")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Levels_4" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=1439389343 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Stage 4 - Bounce"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Stage 4 - Bounce"
+behavior = SubResource("Resource_vwcvq")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Levels_5" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=747161780 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Stage 5 - Cannons"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Stage 5 - Cannons"
+behavior = SubResource("Resource_vwcvq")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Settings_Return" type="RichTextLabel" parent="MenuRoots/LevelSelect/LevelsContainer" unique_id=1831033742 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Return"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Return"
+behavior = SubResource("Resource_r1m44")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Settings" type="Control" parent="MenuRoots" unique_id=191230503]
+visible = false
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("3_quxev")
+metadata/_custom_type_script = "uid://citnshwcy0kb1"
+
+[node name="Header" type="RichTextLabel" parent="MenuRoots/Settings" unique_id=535306536]
+texture_filter = 1
+clip_contents = false
+layout_mode = 0
+offset_left = 640.0
+offset_top = 264.0
+offset_right = 1280.0
+offset_bottom = 471.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "[color=yellow]- SETTINGS -"
+horizontal_alignment = 1
+
+[node name="SettingsContainer" type="VBoxContainer" parent="MenuRoots/Settings" unique_id=1490243917]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 337.0
+offset_right = 1256.0
+offset_bottom = 514.0
+mouse_filter = 2
+
+[node name="Settings_MusicToggle" type="RichTextLabel" parent="MenuRoots/Settings/SettingsContainer" unique_id=1081530120 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Music ON"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Music ON"
+behavior = SubResource("Resource_oc4jn")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Settings_Return" type="RichTextLabel" parent="MenuRoots/Settings/SettingsContainer" unique_id=1741822259 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Return"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Return"
+behavior = SubResource("Resource_r1m44")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="QuitAYS" type="Control" parent="MenuRoots" unique_id=1898603751]
+visible = false
+texture_filter = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("3_quxev")
+metadata/_custom_type_script = "uid://citnshwcy0kb1"
+
+[node name="Header" type="RichTextLabel" parent="MenuRoots/QuitAYS" unique_id=1325935479]
+texture_filter = 1
+clip_contents = false
+layout_mode = 0
+offset_left = 640.0
+offset_top = 264.0
+offset_right = 1280.0
+offset_bottom = 471.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "[color=yellow]Are you sure 
+you want to quit?"
+horizontal_alignment = 1
+
+[node name="AysContainer" type="VBoxContainer" parent="MenuRoots/QuitAYS" unique_id=1568676485]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 411.0
+offset_right = 1256.0
+offset_bottom = 588.0
+mouse_filter = 2
+
+[node name="Ays_Yes" type="RichTextLabel" parent="MenuRoots/QuitAYS/AysContainer" unique_id=1226332884 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Yes"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "Yes"
+behavior = SubResource("Resource_ume8s")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Ays_No" type="RichTextLabel" parent="MenuRoots/QuitAYS/AysContainer" unique_id=907445795 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_c5xkf")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "No"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("4_ume8s")
+Manager = NodePath("../..")
+buttonText = "No"
+behavior = SubResource("Resource_trf5k")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="MusicInterface" type="Node" parent="." unique_id=1196591598]
+script = ExtResource("8_g3t4m")
+curTrack = 0
+metadata/_custom_type_script = "uid://djgdadf3yison"
+
+[node name="Anim" type="AnimationPlayer" parent="." unique_id=1372267447]
+libraries/ = SubResource("AnimationLibrary_trf5k")
+speed_scale = 0.5

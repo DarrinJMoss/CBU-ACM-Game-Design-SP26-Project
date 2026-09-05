@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c8suttu74hgip"]
+
+[ext_resource type="PackedScene" uid="uid://dw37axs3t5r6y" path="res://engine_resources/scenes/level_elements/variable_wall.tscn" id="1_gev4j"]
+[ext_resource type="Texture2D" uid="uid://b7r7nw6b6q80w" path="res://streamed_assets/textures/level_elements/oneway.png" id="2_2cc3m"]
+[ext_resource type="Script" uid="uid://58n1s4kwqtrg" path="res://engine_resources/scripts/cs/level_elements/OneWayWall.cs" id="3_xtf1e"]
+[ext_resource type="Texture2D" uid="uid://conry5jf0nf8c" path="res://streamed_assets/textures/level_elements/oneway_arrow.png" id="4_nkbh8"]
+
+
+[node name="OneWayWall" unique_id=618102656 instance=ExtResource("1_gev4j")]
+texture = ExtResource("2_2cc3m")
+script = ExtResource("3_xtf1e")
+arrowTx = ExtResource("4_nkbh8")
+blockedSide = 0
+
+[node name="CollisionShape2D" parent="StaticBody2D" parent_id_path=PackedInt32Array(1323902214) index="0" unique_id=990054781]
+one_way_collision = true
+one_way_collision_margin = 4.0
+debug_color = Color(0.65618795, 0.5170767, 0, 0.41960785)

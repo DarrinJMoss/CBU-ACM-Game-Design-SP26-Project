@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cpm0gr6e8uvf7"]
+
+[ext_resource type="Script" uid="uid://d4i7s2i71httr" path="res://engine_resources/scripts/cs/level_elements/Key.cs" id="1_7vtnl"]
+[ext_resource type="Texture2D" uid="uid://bv57n3j4thgeb" path="res://streamed_assets/textures/level_elements/key.png" id="2_mf2cl"]
+[ext_resource type="AudioStream" uid="uid://o3krqmk8124v" path="res://streamed_assets/audio/sfx/key_edited.mp3" id="3_xjmf5"]
+[ext_resource type="AudioStream" uid="uid://qp8jiecgyogc" path="res://streamed_assets/audio/sfx/keyloss.wav" id="4_kod4h"]
+[ext_resource type="Texture2D" uid="uid://dypsd06befhkh" path="res://streamed_assets/textures/light/key_light.png" id="5_kod4h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vtnl"]
+radius = 12.0
+
+[node name="Key" type="Area2D" unique_id=981492906 node_paths=PackedStringArray("GetSound", "LooseSound", "KeySprite", "KeySpriteShadow")]
+texture_filter = 1
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_7vtnl")
+GetSound = NodePath("Get")
+LooseSound = NodePath("Loose")
+KeySprite = NodePath("Main")
+KeySpriteShadow = NodePath("Shadow")
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1520991903]
+modulate = Color(0, 0, 0, 0.5019608)
+position = Vector2(2, 2)
+texture = ExtResource("2_mf2cl")
+offset = Vector2(0, -3)
+hframes = 4
+
+[node name="Main" type="Sprite2D" parent="." unique_id=421775929]
+texture = ExtResource("2_mf2cl")
+offset = Vector2(0, -3)
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=89864168]
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_7vtnl")
+
+[node name="Get" type="AudioStreamPlayer2D" parent="." unique_id=296435341]
+stream = ExtResource("3_xjmf5")
+
+[node name="Loose" type="AudioStreamPlayer2D" parent="." unique_id=1374313802]
+stream = ExtResource("4_kod4h")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=240441438]
+color = Color(1, 1, 0, 1)
+energy = 0.2
+shadow_enabled = true
+texture = ExtResource("5_kod4h")
+texture_scale = 1.5

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://c024qpa5ywyie"]
+
+[ext_resource type="Script" uid="uid://7dojclg3wsq1" path="res://engine_resources/scenes/level_elements/jump_pad.gd" id="1_0lkfm"]
+[ext_resource type="Texture2D" uid="uid://d3eauigu3ejeh" path="res://streamed_assets/textures/levels/red-square-png-14.png" id="2_pvadr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mpirn"]
+size = Vector2(58, 14)
+
+[node name="Jump Pad" type="Node2D" unique_id=1397623676]
+script = ExtResource("1_0lkfm")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1762900261]
+visible = false
+texture_filter = 1
+position = Vector2(0, 4)
+texture = ExtResource("2_pvadr")
+region_enabled = true
+region_rect = Rect2(869, 1036.5, 53, 37)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=689741549]
+position = Vector2(0, -4)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=510614688]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_mpirn")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=810174116]
+offset_left = -8.0
+offset_right = 8.0
+offset_bottom = 23.0
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1913431650]
+offset_left = -29.0
+offset_top = -14.0
+offset_right = 29.0
+color = Color(1, 0, 0, 1)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

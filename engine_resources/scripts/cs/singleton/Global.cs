@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 public partial class Global : Node
 {
+    public enum Levels
+    {
+        LV1_FACILITY,
+        LV2_ICE,
+        LV3_SLIME,
+        LV4_BOUNCE,
+        LV5_CANNONS
+    }
     public static Global i = null;
 
     public const float  CONTROLLER_DEADZONE     = 0.2f;
@@ -11,7 +19,7 @@ public partial class Global : Node
     private const bool  ENABLE_REGULAR_LOGS     = true;
 
     // Reference to the current player node if any script needs it.
-    //public Player PlayerRef;
+    public Player PlayerRef                     = null;
 
     public override void _Ready()
     {

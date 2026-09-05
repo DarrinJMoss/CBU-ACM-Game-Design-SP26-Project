@@ -1,0 +1,445 @@
+[gd_scene format=3 uid="uid://bh44o6l6j1bfv"]
+
+[ext_resource type="Shader" uid="uid://dhe5iqo421pga" path="res://engine_resources/shaders/vhs.gdshader" id="1_kwq5y"]
+[ext_resource type="Script" uid="uid://c3unsf4glqyyy" path="res://engine_resources/scripts/gd/splashes.gd" id="1_vqj8r"]
+[ext_resource type="FontFile" uid="uid://bm2q8yphoflv7" path="res://streamed_assets/font/VHSish.otf" id="2_vqj8r"]
+[ext_resource type="Texture2D" uid="uid://c03ica363rxm0" path="res://external/logo_large_monochrome_dark.png" id="3_fep3i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hmepr"]
+shader = ExtResource("1_kwq5y")
+shader_parameter/brightness = 0.800000038
+shader_parameter/contrast = 1.50000007125
+shader_parameter/saturation = 1.54000007315
+shader_parameter/gamma = 1.11200004630023
+shader_parameter/curvature = 0.10000000475
+shader_parameter/corner_soften = 0.20000000298023
+shader_parameter/vignette = 0.26400001254
+shader_parameter/scanline_strength = 0.95
+shader_parameter/scanline_density = 0.8080000146299999
+shader_parameter/interlace_strength = 0.2
+shader_parameter/mask_strength = 0.22
+shader_parameter/mask_scale = 2.6150001004625
+shader_parameter/chroma_offset_px = 3.0000001425
+shader_parameter/luma_smear_px = 6.59600031331
+shader_parameter/jitter_px = 0.6570000312075
+shader_parameter/wobble_px = 1.2810000608475
+shader_parameter/tape_noise = 0.1870000088825
+shader_parameter/tape_lines = 0.438000020805
+shader_parameter/roll_speed = 0.77600003686
+shader_parameter/roll_strength = 0.3210000152475
+shader_parameter/glow_strength = 0.25
+shader_parameter/glow_threshold = 0.65
+shader_parameter/alpha = 0.0
+
+[sub_resource type="Animation" id="Animation_kwq5y"]
+resource_name = "DoIt"
+length = 6.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("White:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6666666, 2, 3.4666667, 5, 5.3333335, 6),
+"transitions": PackedFloat32Array(1, 0.08537743, 1, -2, 1, 0.09473239, 1),
+"update": 0,
+"values": [Vector2(1, 1e-05), Vector2(1, 1e-05), Vector2(1, 0.3), Vector2(1, 0.3), Vector2(1, 1), Vector2(1, 1), Vector2(1, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WePresent:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 3, 4.033334, 5),
+"transitions": PackedFloat32Array(1, 0.15389322, 0.5, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PoweredByGodot:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(0.15389322, 0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CrtShaderRect:material:shader_parameter/alpha")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.9999998),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CrtShaderRect:material:shader_parameter/brightness")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.4999998, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0000000475, 0.800000038]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CrtShaderRect:material:shader_parameter/curvature")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.5, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.10000000475]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CrtShaderRect:material:shader_parameter/corner_soften")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.5, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.20000000298023]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CrtShaderRect:material:shader_parameter/vignette")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.5, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.26400001254]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CrtShaderRect:material:shader_parameter/contrast")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.5, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0000000475, 1.50000007125]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CrtShaderRect:material:shader_parameter/chroma_offset_px")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(1.5, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 3.0000001425]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CrtShaderRect:material:shader_parameter/scanline_strength")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(1.5, 2.9999998),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.95]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("White:color")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 3, 5),
+"transitions": PackedFloat32Array(1, -8.876552, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Black:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(1, 3.0000002),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vqj8r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("White:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WePresent:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PoweredByGodot:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CrtShaderRect:material:shader_parameter/alpha")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CrtShaderRect:material:shader_parameter/brightness")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.800000038]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CrtShaderRect:material:shader_parameter/curvature")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.10000000475]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("CrtShaderRect:material:shader_parameter/corner_soften")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.20000000298023]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CrtShaderRect:material:shader_parameter/vignette")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.26400001254]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CrtShaderRect:material:shader_parameter/contrast")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.50000007125]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("CrtShaderRect:material:shader_parameter/chroma_offset_px")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.0000001425]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("CrtShaderRect:material:shader_parameter/scanline_strength")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.95]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("White:color")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Black:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fep3i"]
+_data = {
+&"DoIt": SubResource("Animation_kwq5y"),
+&"RESET": SubResource("Animation_vqj8r")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1982339169]
+script = ExtResource("1_vqj8r")
+
+[node name="Black" type="ColorRect" parent="." unique_id=415388955]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="White" type="ColorRect" parent="." unique_id=475508148]
+offset_right = 1280.0
+offset_bottom = 720.0
+scale = Vector2(1, 1e-05)
+pivot_offset_ratio = Vector2(0, 0.5)
+color = Color(1, 1, 0, 1)
+
+[node name="CrtShaderRect" type="ColorRect" parent="." unique_id=694338348]
+material = SubResource("ShaderMaterial_hmepr")
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+
+[node name="WePresent" type="Control" parent="." unique_id=406816656]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Main_NewGame" type="RichTextLabel" parent="WePresent" unique_id=1340067740]
+clip_contents = false
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_vqj8r")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "The CBU ACM 2025-2026 team presents"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PoweredByGodot" type="Control" parent="." unique_id=1021063715]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="Main_NewGame" type="RichTextLabel" parent="PoweredByGodot" unique_id=1612808194]
+clip_contents = false
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_vqj8r")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Powered By
+
+
+
+
+
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="PoweredByGodot" unique_id=1285669313]
+position = Vector2(640, 360)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_fep3i")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=966317752]
+libraries/ = SubResource("AnimationLibrary_fep3i")

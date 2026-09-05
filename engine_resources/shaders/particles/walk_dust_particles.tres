@@ -1,0 +1,20 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://dotm6nl6lcj4r"]
+
+[sub_resource type="Curve" id="Curve_hmd2p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.20430106, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bh68d"]
+curve = SubResource("Curve_hmd2p")
+
+[resource]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 15.0
+gravity = Vector3(0, 0, 0)
+damping_min = 15.000001
+damping_max = 25.000002
+scale_min = 5.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_bh68d")

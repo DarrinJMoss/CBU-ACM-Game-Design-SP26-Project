@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://3455hwbyyjlp"]
+
+[ext_resource type="Script" uid="uid://bawou1i2ocmvp" path="res://engine_resources/scripts/cs/level_elements/FuelPickup.cs" id="1_ulud6"]
+
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_801ib"]
+radius = 28.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ulud6"]
+radial_segments = 4
+rings = 4
+
+[node name="FuelPickup" type="Node2D" unique_id=671104323 node_paths=PackedStringArray("Graphic")]
+script = ExtResource("1_ulud6")
+Graphic = NodePath("MeshInstance2D")
+
+[node name="Detector" type="Area2D" parent="." unique_id=2056839163]
+collision_layer = 16
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=1100585941]
+shape = SubResource("CircleShape2D_801ib")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1329852550]
+modulate = Color(0.5019608, 1, 0, 1)
+scale = Vector2(45, 45)
+mesh = SubResource("SphereMesh_ulud6")
+
+[connection signal="body_entered" from="Detector" to="." method="_BodyDetected"]

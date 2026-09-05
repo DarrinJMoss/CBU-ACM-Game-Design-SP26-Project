@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://cd7vr0u13kj38"]
+
+[ext_resource type="Script" uid="uid://bbjwkccffgkpl" path="res://engine_resources/scripts/gd/oneshot_particles.gd" id="1_ii2ta"]
+[ext_resource type="Texture2D" uid="uid://dtwdss1sfbo4l" path="res://streamed_assets/textures/other/white_square.png" id="1_mcyd8"]
+[ext_resource type="Material" uid="uid://bwil3a66dc3b5" path="res://engine_resources/shaders/particles/blast_particles.tres" id="2_3tnq0"]
+
+[node name="BlastParticles" type="GPUParticles2D" unique_id=1192926986]
+emitting = false
+amount = 32
+texture = ExtResource("1_mcyd8")
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+fixed_fps = 15
+process_material = ExtResource("2_3tnq0")
+script = ExtResource("1_ii2ta")
+particleTime = 1.5

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b6c570va8a1em"]
+
+[ext_resource type="PackedScene" uid="uid://dw37axs3t5r6y" path="res://engine_resources/scenes/level_elements/variable_wall.tscn" id="1_7xjp2"]
+[ext_resource type="Texture2D" uid="uid://crblduwc0h5ds" path="res://streamed_assets/textures/level_elements/reactive_platform.png" id="2_rpx3i"]
+[ext_resource type="Script" uid="uid://bbgixr0pjfi20" path="res://engine_resources/scripts/cs/level_elements/ReactiveMovingPlatform.cs" id="3_rpx3i"]
+
+
+[node name="ReactiveMovingPlatform" unique_id=618102656 instance=ExtResource("1_7xjp2")]
+texture = ExtResource("2_rpx3i")
+script = ExtResource("3_rpx3i")

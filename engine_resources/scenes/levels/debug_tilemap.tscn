@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://2yl3j6lu1jp2"]
+
+[ext_resource type="Texture2D" uid="uid://bnybs55rr70w6" path="res://streamed_assets/textures/levels/collision_tilemap.png" id="1_qiplj"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_qiplj"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w6s8j"]
+texture = ExtResource("1_qiplj")
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_qiplj")
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0/custom_data_0 = true
+1:1/0 = 0
+1:1/0/physics_layer_2/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, 0, 8, 8, -8, 8)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(8, -8, 8, 8, -8, 8, -8, 0)
+
+[sub_resource type="TileSet" id="TileSet_fwvoy"]
+occlusion_layer_0/light_mask = 1
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 5
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 4
+physics_layer_2/collision_layer = 8
+physics_layer_2/collision_mask = 4
+custom_data_layer_0/name = "Death"
+custom_data_layer_0/type = 1
+sources/0 = SubResource("TileSetAtlasSource_w6s8j")
+
+[node name="DebugTilemap" type="TileMapLayer" unique_id=1358205662 groups=["Walls"]]
+texture_filter = 1
+tile_set = SubResource("TileSet_fwvoy")
