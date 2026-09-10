@@ -41,6 +41,7 @@ project/assembly_name="CBU ACM Game Project SP26"
 
 Buttons=""
 Walls=""
+Ice=""
 
 [input]
 

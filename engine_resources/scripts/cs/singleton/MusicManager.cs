@@ -8,6 +8,8 @@ public partial class MusicManager : Node
     const string TRACKPATH_STAGE_1_MENU         = "res://streamed_assets/audio/music/stage_1_menu.ogg";
     const string TRACKPATH_STAGE_ICE            = "res://streamed_assets/audio/music/stage_ice.ogg";
     const string TRACKPATH_STAGE_ICE_MENU       = "res://streamed_assets/audio/music/stage_ice_menu.ogg";
+    const string TRACKPATH_STAGE_SLIME          = "res://streamed_assets/audio/music/stage_slime.ogg";
+    const string TRACKPATH_STAGE_SLIME_MENU     = "res://streamed_assets/audio/music/stage_slime_menu.ogg";
 
     private class MusicTrack
     {
@@ -47,30 +49,23 @@ public partial class MusicManager : Node
         TITLE       = 0,
         STAGE_1,
         STAGE_ICE,
+        STAGE_SLIME,
         TRACK_COUNT,
         SILENT      = 99
     }
     private MusicTrack[]        tracklist                   = new MusicTrack[(int)Tracks.TRACK_COUNT];
     private Tracks              currentTrack                = Tracks.SILENT;
 
-    private AudioStreamPlayer   track1_reg                  = null;
-    private AudioStreamPlayer   track1_menu                 = null;
-    private AudioStreamPlayer   track2_reg                  = null;
-    private AudioStreamPlayer   track2_menu                 = null;
+    private AudioStreamPlayer   mPlayer_main                = null;
+    private AudioStreamPlayer   mPlayer_menu                = null;
 
     private const float         DB_ENABLED                  =  0.0f;
     private const float         DB_DISABLED                 = -30.0f;
     private const float         DB_CHANGE_WEIGHT_PLUS       = 20.0f;
     private const float         DB_CHANGE_WEIGHT_MINUS      = 5.0f;
-    private const float         TRACK_DISABLE_THRESHHOLD    = -7.0f;
-    private const float         TRACK_ENABLE_THRESHOLD      = -7.0f;
     private bool                curTrackIs1                 = false;
     private float               track1_targetDB             = DB_ENABLED;
     private float               track1_curDB                = DB_ENABLED;
-    private bool                track1_enabled              = false;
-    private float               track2_targetDB             = DB_DISABLED;
-    private float               track2_curDB                = DB_DISABLED;
-    private bool                track2_enabled              = false;
 
     public static MusicManager  i                           = null;
 
@@ -81,11 +76,11 @@ public partial class MusicManager : Node
         tracklist[(int)Tracks.TITLE]        = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_TITLE));
         tracklist[(int)Tracks.STAGE_1]      = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_1),       GD.Load<AudioStream>(TRACKPATH_STAGE_1_MENU));
         tracklist[(int)Tracks.STAGE_ICE]    = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_ICE),     GD.Load<AudioStream>(TRACKPATH_STAGE_ICE_MENU));
+        tracklist[(int)Tracks.STAGE_SLIME]  = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_SLIME),   GD.Load<AudioStream>(TRACKPATH_STAGE_SLIME_MENU));
 
-        track1_reg  = GetNode<AudioStreamPlayer>("%T1Reg");
-        track1_menu = GetNode<AudioStreamPlayer>("%T1Menu");
-        track2_reg  = GetNode<AudioStreamPlayer>("%T2Reg");
-        track2_menu = GetNode<AudioStreamPlayer>("%T2Menu");
+
+        mPlayer_main = GetNode<AudioStreamPlayer>("%MPlayerMain"); mPlayer_main.Playing = true;
+        mPlayer_menu = GetNode<AudioStreamPlayer>("%MPlayerMenu"); mPlayer_menu.Playing = true;
 
         if (MusicManager.i == null)
         {
@@ -101,78 +96,28 @@ public partial class MusicManager : Node
 
     public override void _Process(double delta)
     {
-        // Track one master control
-        bool pt1_en = track1_enabled;
-        track1_curDB = track1_targetDB;
-        if (track1_curDB >= TRACK_ENABLE_THRESHOLD)
-        {
-            track1_enabled      = true;
-        }
-        else if (track1_curDB <= TRACK_DISABLE_THRESHHOLD)
-        {
-            track1_enabled      = false;
-        }
-
-        if (pt1_en != track1_enabled)
-        {
-            if (track1_enabled)
-            {
-                StartTrack1();
-            }
-            else
-            {
-                StopTrack1();
-            }
-        }
-
-
-        // Track two master control
-        bool pt2_en = track2_enabled;
-        track2_curDB = track2_targetDB;
-        if (track2_curDB >= TRACK_ENABLE_THRESHOLD)
-        {
-            track2_enabled      = true;
-        }
-        else if (track2_curDB <= TRACK_DISABLE_THRESHHOLD)
-        {
-            track2_enabled      = false;
-        }
-
-        if (pt2_en != track2_enabled)
-        {
-            if (track2_enabled)
-            {
-                StartTrack2();
-            }
-            else
-            {
-                StopTrack2();
-            }
-        }
-
-
         // Individual channel control
         if (Global.i.IsInMenu())
         {
-            track1_menu.VolumeDb    = Mathf.Lerp(track1_menu.VolumeDb,  track1_curDB,   DB_CHANGE_WEIGHT_PLUS   * Global.i.GetClampedDelta_PR());
-            track1_reg.VolumeDb     = Mathf.Lerp(track1_reg.VolumeDb,   DB_DISABLED,    DB_CHANGE_WEIGHT_MINUS  * Global.i.GetClampedDelta_PR());
-
-            track2_menu.VolumeDb    = Mathf.Lerp(track2_menu.VolumeDb,  track2_curDB,   DB_CHANGE_WEIGHT_PLUS   * Global.i.GetClampedDelta_PR());
-            track2_reg.VolumeDb     = Mathf.Lerp(track2_reg.VolumeDb,   DB_DISABLED,    DB_CHANGE_WEIGHT_MINUS  * Global.i.GetClampedDelta_PR());
+            mPlayer_menu.VolumeDb = Mathf.Lerp(mPlayer_menu.VolumeDb,  track1_curDB,   DB_CHANGE_WEIGHT_PLUS   * Global.i.GetClampedDelta_PR());
+            mPlayer_main.VolumeDb = Mathf.Lerp(mPlayer_main.VolumeDb,  DB_DISABLED,    DB_CHANGE_WEIGHT_MINUS  * Global.i.GetClampedDelta_PR());
         }
         else
         {
-            track1_menu.VolumeDb    = Mathf.Lerp(track1_menu.VolumeDb,  DB_DISABLED,    DB_CHANGE_WEIGHT_MINUS  * Global.i.GetClampedDelta_PR());
-            track1_reg.VolumeDb     = Mathf.Lerp(track1_reg.VolumeDb,   track1_curDB,   DB_CHANGE_WEIGHT_PLUS   * Global.i.GetClampedDelta_PR());
-
-            track2_menu.VolumeDb    = Mathf.Lerp(track2_menu.VolumeDb,  DB_DISABLED,    DB_CHANGE_WEIGHT_MINUS  * Global.i.GetClampedDelta_PR());
-            track2_reg.VolumeDb     = Mathf.Lerp(track2_reg.VolumeDb,   track2_curDB,   DB_CHANGE_WEIGHT_PLUS   * Global.i.GetClampedDelta_PR());
+            mPlayer_menu.VolumeDb = Mathf.Lerp(mPlayer_menu.VolumeDb,  DB_DISABLED,    DB_CHANGE_WEIGHT_MINUS  * Global.i.GetClampedDelta_PR());
+            mPlayer_main.VolumeDb = Mathf.Lerp(mPlayer_main.VolumeDb,  track1_curDB,   DB_CHANGE_WEIGHT_PLUS   * Global.i.GetClampedDelta_PR());
         }
     }
 
 
     public void ChangeTrack(Tracks nTrack)
     {
+        if (nTrack == Tracks.SILENT)
+        {
+            mPlayer_main.Stop();
+            mPlayer_menu.Stop();
+            return;
+        }
         // Don't update the track if it's already being played
         if (nTrack == currentTrack)
         {
@@ -181,72 +126,22 @@ public partial class MusicManager : Node
         currentTrack = nTrack;
         Global.Log("MusicManager.ChangeTrack()", "engine_resources/scripts/cs/singleton/MusicManager.cs", $"Changing Track to ID: {nTrack}");
 
-        if (nTrack == Tracks.SILENT)
-        {
-            track2_targetDB = DB_DISABLED;
-            track1_targetDB = DB_DISABLED;
-            return;
-        }
-
         MusicTrack targetTrack = this.tracklist[(int)nTrack];
 
-        curTrackIs1 = !curTrackIs1;
-
-        if (curTrackIs1)
+        mPlayer_main.Stream = targetTrack.GetNonMenuTrack();
+        if (targetTrack.MenuTrackEnabled())
         {
-            Global.Log("MusicManager.ChangeTrack()", "engine_resources/scripts/cs/singleton/MusicManager.cs", "Current track is 1");
-            track1_reg.Stream = targetTrack.GetNonMenuTrack();
-            if (targetTrack.MenuTrackEnabled())
-            {
-                track1_menu.Stream = targetTrack.GetMenuTrack();
-            }
-            else
-            {
-                track1_menu.Stream = targetTrack.GetNonMenuTrack();
-            }
-            track1_targetDB = DB_ENABLED;
-            track2_targetDB = DB_DISABLED;
-            GD.Print(track1_targetDB);
+            mPlayer_menu.Stream = targetTrack.GetMenuTrack();
         }
         else
         {
-            Global.Log("MusicManager.ChangeTrack()", "engine_resources/scripts/cs/singleton/MusicManager.cs", "Current track is 2");
-            track2_reg.Stream = targetTrack.GetNonMenuTrack();
-            if (targetTrack.MenuTrackEnabled())
-            {
-                track2_menu.Stream = targetTrack.GetMenuTrack();
-            }
-            else
-            {
-                track2_menu.Stream = targetTrack.GetNonMenuTrack();
-            }
-            track1_targetDB = DB_DISABLED;
-            track2_targetDB = DB_ENABLED;
+            mPlayer_menu.Stream = targetTrack.GetNonMenuTrack();
         }
+        track1_targetDB = DB_ENABLED;
 
+        mPlayer_main.Play();
+        mPlayer_menu.Play();
 
-    }
-
-    private void StartTrack1()
-    {
-        track1_reg.Play();
-        track1_menu.Play();
-    }
-    private void StopTrack1()
-    {
-        track1_reg.Stop();
-        track1_menu.Stop();
-    }
-
-    private void StartTrack2()
-    {
-        track2_reg.Play();
-        track2_menu.Play();
-    }
-    private void StopTrack2()
-    {
-        track2_reg.Stop();
-        track2_menu.Stop();
     }
 
 }

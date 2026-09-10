@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://17kuy8f3pmni"]
+
+[ext_resource type="Script" uid="uid://b7ot0ieyd3y22" path="res://engine_resources/scripts/cs/singleton/LevelTransitionManager.cs" id="1_ahixh"]
+[ext_resource type="Shader" uid="uid://dhe5iqo421pga" path="res://engine_resources/shaders/vhs.gdshader" id="2_j52ls"]
+[ext_resource type="FontFile" uid="uid://bm2q8yphoflv7" path="res://streamed_assets/font/VHSish.otf" id="2_wxlbu"]
+[ext_resource type="Script" uid="uid://citnshwcy0kb1" path="res://engine_resources/scripts/cs/ui/UiContainer.cs" id="3_6tkxj"]
+[ext_resource type="Script" uid="uid://cqt4ji4c285nr" path="res://engine_resources/scripts/cs/ui/TextButton.cs" id="4_j52ls"]
+[ext_resource type="Script" uid="uid://cpy7hdwj136w" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbEmitSignal.cs" id="5_u2nuv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2nuv"]
+shader = ExtResource("2_j52ls")
+shader_parameter/brightness = 1.02
+shader_parameter/contrast = 1.08
+shader_parameter/saturation = 1.1
+shader_parameter/gamma = 1.05
+shader_parameter/curvature = 0.14
+shader_parameter/corner_soften = 0.06
+shader_parameter/vignette = 0.38
+shader_parameter/scanline_strength = 0.95
+shader_parameter/scanline_density = 1.15
+shader_parameter/interlace_strength = 0.2
+shader_parameter/mask_strength = 0.22
+shader_parameter/mask_scale = 1.0
+shader_parameter/chroma_offset_px = 1.6
+shader_parameter/luma_smear_px = 2.2
+shader_parameter/jitter_px = 1.8
+shader_parameter/wobble_px = 1.5
+shader_parameter/tape_noise = 0.22
+shader_parameter/tape_lines = 0.35
+shader_parameter/roll_speed = 0.1
+shader_parameter/roll_strength = 0.15
+shader_parameter/glow_strength = 0.25
+shader_parameter/glow_threshold = 0.65
+shader_parameter/alpha = 1.0
+
+[sub_resource type="Resource" id="Resource_4xpa6"]
+script = ExtResource("5_u2nuv")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[sub_resource type="Resource" id="Resource_6tkxj"]
+script = ExtResource("5_u2nuv")
+metadata/_custom_type_script = "uid://cpy7hdwj136w"
+
+[node name="LevelTransitionManager" type="CanvasLayer" unique_id=1077483044]
+script = ExtResource("1_ahixh")
+
+[node name="Shader" type="ColorRect" parent="." unique_id=1326568054]
+material = SubResource("ShaderMaterial_u2nuv")
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="LevelCompleteTxt" type="RichTextLabel" parent="." unique_id=20691216]
+texture_filter = 1
+clip_contents = false
+offset_right = 1280.0
+offset_bottom = 240.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_wxlbu")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "[color=yellow][shake]* LEVEL COMPLETE! *"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MidLHS" type="RichTextLabel" parent="." unique_id=1255295652]
+texture_filter = 1
+clip_contents = false
+offset_top = 240.0
+offset_right = 545.0
+offset_bottom = 480.0
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_wxlbu")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "TIME TAKEN:
+RANK:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="RHSTimeTakenTxt" type="RichTextLabel" parent="." unique_id=331911967]
+texture_filter = 1
+clip_contents = false
+offset_left = 707.0
+offset_top = 205.225
+offset_right = 1347.0
+offset_bottom = 445.2246
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_wxlbu")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "00:00.00"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="RHSRankTxt" type="RichTextLabel" parent="." unique_id=902043019]
+texture_filter = 1
+clip_contents = false
+offset_left = 707.0
+offset_top = 275.0
+offset_right = 1347.0
+offset_bottom = 514.99963
+mouse_filter = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/normal_font = ExtResource("2_wxlbu")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "S"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="LevelProceedOptions" type="Control" parent="." unique_id=247139704]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_6tkxj")
+
+[node name="Proc_NextLv" type="RichTextLabel" parent="LevelProceedOptions" unique_id=2070894368 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 0
+offset_top = 480.0
+offset_right = 1280.0
+offset_bottom = 600.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_wxlbu")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Next Level"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_j52ls")
+Manager = NodePath("..")
+buttonText = "Next Level"
+behavior = SubResource("Resource_4xpa6")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"
+
+[node name="Proc_RetryLv" type="RichTextLabel" parent="LevelProceedOptions" unique_id=1537857065 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+clip_contents = false
+layout_mode = 0
+offset_top = 600.0
+offset_right = 1280.0
+offset_bottom = 720.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("2_wxlbu")
+theme_override_font_sizes/normal_font_size = 69
+bbcode_enabled = true
+text = "Retry"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_j52ls")
+Manager = NodePath("..")
+buttonText = "Next Level"
+behavior = SubResource("Resource_6tkxj")
+metadata/_custom_type_script = "uid://cqt4ji4c285nr"

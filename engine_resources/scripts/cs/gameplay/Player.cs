@@ -24,7 +24,7 @@ public partial class Player : CharacterBody2D
     [Export] private AudioStreamPlayer2D JetpackSfx;
     [Export] private AudioStreamPlayer2D JeckpackLaunchSfx;
 
-    private PCam PCamRef; // Spawned in at runtime
+    public PCam PCamRef; // Spawned in at runtime
 
     /**************** Camera Movement ****************/
     private const float MAX_CAMERA_DISTANCE_G   = 50.0f;
@@ -64,7 +64,7 @@ public partial class Player : CharacterBody2D
     private const float RECOVERY_TIME = 0.3f;
     private float currentRecoveryTimer = 0.0f;
 
-  	/*******ice var*****/
+  	/******* Ice Vars *****/
 	private bool isOnSlide = false;
 
     /**************** Fuel Variables *****************/
@@ -107,8 +107,8 @@ public partial class Player : CharacterBody2D
     private const float LAUNCH_BOOST_DURATION = 0.5f; // 0.5 seconds of unrestricted velocity
     private bool isExitingCannon = false; // Prevents movement/jetpack after exiting cannon
     private bool exitedCannonThisFrame = false;
-
     private float jetpackPitch = 0.0f;
+    public bool controlEnabled = true;
 
     /*************** Slime/Bounce Variables ***************/
     private const float SLIME_AMPLIFIER = 1.5f;        // How much slime amplifies your velocity
@@ -128,6 +128,8 @@ public partial class Player : CharacterBody2D
         GetParent().CallDeferred(Node.MethodName.AddChild, PCamRef);
         PSpriteTorso.FrameChanged += _TorsoFrameUpdated;
         Anim.AnimationFinished += _AnimationFinished;
+
+        respawnPosition = this.GlobalPosition;
     }
 
     public override void _ExitTree()
@@ -247,7 +249,7 @@ public partial class Player : CharacterBody2D
     		}
     
 
-    		if (Input.IsActionJustPressed("Jump"))
+    		if (Input.IsActionJustPressed("Jump") && controlEnabled)
     		{
     			curVel.Y = -JUMP_VELOCITY;
     			OneshotParticleManager.i.SpawnParticleAsChild(OneshotParticleManager.ParticleTypes.LAND_JUMP, this, new Vector2(0.0f, 11.0f), 0.0f, 5);
@@ -290,7 +292,7 @@ public partial class Player : CharacterBody2D
         PT_ThrusterR.Emitting = false;
 
     	// Jetpack Stuff
-    	if (HasJetpack() && currentFuel > 0.0f)
+    	if (HasJetpack() && currentFuel > 0.0f && controlEnabled)
     	{
     		// Boost
     		if ((currentFuel >= BOOST_COST) && canBoost && Input.IsActionJustPressed("Boost") && !isInCannon && !exitedCannonThisFrame)
@@ -451,7 +453,7 @@ public partial class Player : CharacterBody2D
 			KinematicCollision2D collision = this.GetSlideCollision(i);
 			GodotObject collider = collision.GetCollider();
 
-			if (collider is Node node && node.IsInGroup("slide"))
+			if (collider is Node node && node.IsInGroup("Ice"))
 			{
 				isOnSlide = true;
 			}
@@ -534,6 +536,7 @@ public partial class Player : CharacterBody2D
         {
             PSpriteLegs.Rotation = -currentAngle;
 
+
             if (Mathf.Sign(curVel.X) == -1.0f)
             {
                 PSpriteTorso.FlipH = true;
@@ -546,7 +549,13 @@ public partial class Player : CharacterBody2D
                 PSpriteLegs.FlipH  = false;
                 PSpriteJetpack.FlipH = false;
             }
-            if (Mathf.Abs(curVel.X) <= IDLE_SPEED_TRHESH)
+
+
+            if (isSkidding && Mathf.Abs(curVel.X) <= IDLE_SPEED_TRHESH && isOnSlide)
+            {
+                _SetAnim("Skid", true);
+            }
+            else if (Mathf.Abs(curVel.X) <= IDLE_SPEED_TRHESH)
             {
                 Anim.SpeedScale = 1.0f;
                 _SetAnim("Idle", false);
@@ -776,6 +785,14 @@ public partial class Player : CharacterBody2D
                 return;
             }
         }
+    }
+
+    public void ExitElevator(Node levelRoot)
+    {
+        this.Reparent(levelRoot);
+        PCamRef.Reparent(levelRoot);
+
+        Global.i.PlayerRef = this;
     }
 
     private void _AnimationFinished(StringName animation)

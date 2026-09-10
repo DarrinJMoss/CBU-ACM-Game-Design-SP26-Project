@@ -11,16 +11,37 @@ public partial class FuelPickup : Node2D
 	private bool isDisabled = false;
 	private float sineVal = 0.0f;
 
+    private bool isSetup = false;
+
 
 	public override void _Ready()
 	{
-		Global.i.PlayerRef.PlayerNowSafe += Enable;
+        try
+        {
+            Global.i.PlayerRef.PlayerNowSafe += Enable;
+            isSetup = true;
+        }
+        catch (NullReferenceException) {
+            isSetup = false;
+        }
+		
 		Disable();
 	}
 
 
 	public override void _PhysicsProcess(double delta)
 	{
+        if (!isSetup)
+        {
+            try
+            {
+                Global.i.PlayerRef.PlayerNowSafe += Enable;
+                isSetup = true;
+            }
+            catch (NullReferenceException) {
+                isSetup = false;
+            }
+        }
 		sineVal += (float)delta;
 		Graphic.Position = new Vector2((float)Mathf.Sin(sineVal * 2.0f) * 3.0f, (float)MathF.Cos(sineVal * 2.0f) * 3.0f);
 	}

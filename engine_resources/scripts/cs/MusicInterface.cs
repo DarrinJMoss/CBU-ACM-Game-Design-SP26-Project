@@ -7,14 +7,16 @@ public partial class MusicInterface : Node
     [Export]
     public MusicManager.Tracks      curTrack         = MusicManager.Tracks.SILENT;
     [Export]
-    private bool                    deferStart      = false;
+    public bool                     deferStart      = false;
 
     private int                     failureCount    = 0;
 
     public override void _Ready()
     {
+        GD.Print($"huh?, {this}");
         if (!deferStart)
         {
+            Global.Log("_Ready()", "res://engine_resources/scripts/cs/MusicInterface.cs", "Switching Track...");
             if (MusicManager.i == null)
             {
                 // Initialization failed
@@ -22,11 +24,12 @@ public partial class MusicInterface : Node
                 return;
             }
             MusicManager.i.ChangeTrack(curTrack);
-            this.QueueFree();
+            //this.QueueFree();
             this.SetProcess(false);
         }
         else
         {
+            Global.Log("_Ready()", "res://engine_resources/scripts/cs/MusicInterface.cs", "Muting tracks...");
             if (MusicManager.i == null)
             {
                 // Initialization failed
@@ -46,6 +49,7 @@ public partial class MusicInterface : Node
     {
         if (!deferStart)
         {
+            Global.Log("_Process()", "res://engine_resources/scripts/cs/MusicInterface.cs", "Switching Track...");
             if (MusicManager.i == null)
             {
                 failureCount++;
@@ -53,13 +57,14 @@ public partial class MusicInterface : Node
                 return;
             }
             MusicManager.i.ChangeTrack(curTrack);
-            this.QueueFree();
+            //this.QueueFree();
             this.SetProcess(false);
         }
     }
 
     public void StartMusic()
     {
+        Global.Log("StartMusic()", "res://engine_resources/scripts/cs/MusicInterface.cs", "Switching Track...");
         if (MusicManager.i == null)
         {
             // Initialization failed
@@ -67,7 +72,7 @@ public partial class MusicInterface : Node
             return;
         }
         MusicManager.i.ChangeTrack(curTrack);
-        this.QueueFree();
+        //this.QueueFree();
         this.SetProcess(false);
     }
 

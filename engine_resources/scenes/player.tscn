@@ -202,6 +202,7 @@ radius = 8.062258
 radius = 9.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1248458229 node_paths=PackedStringArray("UI_FuelIndicator", "UI_Speed", "GraphicsRoot", "PT_SkidParticles", "PT_WalkParticles", "PT_ThrusterL", "PT_ThrusterR", "DB_RespawnLocation", "DB_AngleIndicator", "Anim", "PSpriteTorso", "PSpriteLegs", "PSpriteJetpack", "JumpSfx", "StepSfx", "LandSfx", "JetpackSfx", "JeckpackLaunchSfx")]
+z_index = 5
 texture_filter = 1
 collision_layer = 4
 floor_snap_length = 8.0
@@ -245,6 +246,7 @@ vertical_alignment = 1
 
 [node name="GraphicsRoot" type="Node2D" parent="." unique_id=734551779]
 texture_filter = 1
+rotation = -1.5707964
 
 [node name="Body" type="MeshInstance2D" parent="GraphicsRoot" unique_id=1939194842]
 visible = false
@@ -267,7 +269,6 @@ rotation = 1.5707964
 texture = ExtResource("5_1irjf")
 offset = Vector2(0, -3)
 hframes = 36
-frame = 30
 
 [node name="Legs" type="Sprite2D" parent="GraphicsRoot" unique_id=845769505]
 position = Vector2(3.000002, 1.6109696e-14)

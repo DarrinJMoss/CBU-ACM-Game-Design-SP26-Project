@@ -5,7 +5,6 @@
 [ext_resource type="FontFile" uid="uid://bm2q8yphoflv7" path="res://streamed_assets/font/VHSish.otf" id="4_10jqi"]
 [ext_resource type="Script" uid="uid://citnshwcy0kb1" path="res://engine_resources/scripts/cs/ui/UiContainer.cs" id="5_86va0"]
 [ext_resource type="Script" uid="uid://cqt4ji4c285nr" path="res://engine_resources/scripts/cs/ui/TextButton.cs" id="7_5f0ee"]
-[ext_resource type="Script" uid="uid://djgdadf3yison" path="res://engine_resources/scripts/cs/MusicInterface.cs" id="7_qi3dd"]
 [ext_resource type="Script" uid="uid://nh4fy6j0v0sm" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbChangeMenu.cs" id="8_aop3b"]
 [ext_resource type="Script" uid="uid://cpy7hdwj136w" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbEmitSignal.cs" id="9_aop3b"]
 [ext_resource type="Script" uid="uid://dn8c35njbtjtx" path="res://engine_resources/scripts/cs/ui/text_button_behavior/TbbPopMenu.cs" id="9_dc7lj"]
@@ -106,6 +105,7 @@ autowrap_mode = 0
 
 [node name="PauseRoot" type="Control" parent="." unique_id=54507766]
 unique_name_in_owner = true
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
@@ -207,6 +207,7 @@ behavior = SubResource("Resource_cqtc2")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Settings" type="Control" parent="." unique_id=1133142525]
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
@@ -267,6 +268,7 @@ behavior = SubResource("Resource_ekjmd")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Quit" type="Control" parent="." unique_id=936614344]
+visible = false
 texture_filter = 1
 layout_mode = 3
 anchors_preset = 0
@@ -344,8 +346,3 @@ Manager = NodePath("../..")
 buttonText = "No"
 behavior = SubResource("Resource_5f0ee")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
-
-[node name="MusicInterface" type="Node" parent="." unique_id=1807192587]
-script = ExtResource("7_qi3dd")
-curTrack = 1
-metadata/_custom_type_script = "uid://djgdadf3yison"

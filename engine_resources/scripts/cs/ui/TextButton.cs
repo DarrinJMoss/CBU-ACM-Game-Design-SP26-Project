@@ -31,6 +31,8 @@ public partial class TextButton : RichTextLabel
 
         this.Text = buttonText;
 
+        //this.FocusMode = FocusModeEnum.All;
+
         this.MouseEntered += _TextButtonHovered;
         this.MouseExited  += _TextButtonUnHovered;
     }
@@ -54,8 +56,16 @@ public partial class TextButton : RichTextLabel
 
 
 
-    private void _TextButtonHovered()
+    private async void _TextButtonHovered()
     {
+        while (Input.IsActionPressed("MouseDown"))
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        if (!GetGlobalRect().HasPoint(GetGlobalMousePosition()))
+        {
+            return;
+        }
         isHovered = true;
         this.Text = "[color=yellow]" + buttonText + "[/color]";
         behavior.Hovered();

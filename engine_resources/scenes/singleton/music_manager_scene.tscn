@@ -6,22 +6,12 @@
 process_mode = 3
 script = ExtResource("1_0sb2e")
 
-[node name="Track1" type="Node" parent="." unique_id=1408642909]
-
-[node name="T1Reg" type="AudioStreamPlayer" parent="Track1" unique_id=593008837]
+[node name="MPlayerMain" type="AudioStreamPlayer" parent="." unique_id=85958987]
 unique_name_in_owner = true
+autoplay = true
 bus = &"Music"
 
-[node name="T1Menu" type="AudioStreamPlayer" parent="Track1" unique_id=1916533561]
+[node name="MPlayerMenu" type="AudioStreamPlayer" parent="." unique_id=826694745]
 unique_name_in_owner = true
-bus = &"Music"
-
-[node name="Track2" type="Node" parent="." unique_id=1270404120]
-
-[node name="T2Reg" type="AudioStreamPlayer" parent="Track2" unique_id=714061497]
-unique_name_in_owner = true
-bus = &"Music"
-
-[node name="T2Menu" type="AudioStreamPlayer" parent="Track2" unique_id=4921091]
-unique_name_in_owner = true
+autoplay = true
 bus = &"Music"

@@ -44,6 +44,19 @@ public partial class Title : CanvasLayer
 
     }
 
+    public override void _Input(InputEvent @event)
+    {
+        if (Input.IsActionPressed("SkipIntro") || Input.IsMouseButtonPressed(MouseButton.Left))
+        {
+            _Anim.SpeedScale = 3.0f;
+        }
+        else
+        {
+            _Anim.SpeedScale = 1.0f;
+        }
+    }
+
+
     private void _ButtonPressed(string caller, string[] args)
     {
         GD.Print($"Caller {caller}");
@@ -56,7 +69,7 @@ public partial class Title : CanvasLayer
 
             // Level Select
             case "Main_NewGame":
-                _BeginGame(Global.Levels.TESTING_LEVEL);
+                _BeginGame(Global.Levels.LV1_FACILITY);
                 break;
             case "Levels_1":
                 _BeginGame(Global.Levels.LV1_FACILITY);
@@ -120,7 +133,7 @@ public partial class Title : CanvasLayer
                 GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/1_complex.tscn");
                 break;
             case Global.Levels.LV2_ICE:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/test_level.tscn");
+                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/2_ice.tscn");
                 break;
             case Global.Levels.LV3_SLIME:
                 GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/3_slime.tscn");
