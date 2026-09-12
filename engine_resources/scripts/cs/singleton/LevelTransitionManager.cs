@@ -98,6 +98,8 @@ public partial class LevelTransitionManager : CanvasLayer
         _LB_RHS_Rank        .Hide();
         _LB_RHS_TimeTaken   .Hide();
 
+        _LevelProceedMenu   = GetNode<UiContainer>("LevelProceedOptions");
+
         _curLevel = Global.Levels.LV1_FACILITY;
 
         _curTimestamp = new CcLevelTimestamp
@@ -260,7 +262,7 @@ public partial class LevelTransitionManager : CanvasLayer
 
         await ToSignal(GetTree().CreateTimer(0.5f), Timer.SignalName.Timeout);
 
-        UiManager.i.UiPush(_LevelProceedMenu);
+        UiManager.i.UiWipeStack(); UiManager.i.UiPush(_LevelProceedMenu);
 
     }
 }
