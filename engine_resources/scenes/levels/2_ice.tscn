@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cieoyr67sqtjt" path="res://streamed_assets/textures/particles/ice.png" id="7_ot7vw"]
 [ext_resource type="PackedScene" uid="uid://djc1qwai7xod3" path="res://engine_resources/scenes/levels/visual_tiles.tscn" id="9_x2omg"]
 [ext_resource type="PackedScene" uid="uid://c8suttu74hgip" path="res://engine_resources/scenes/level_elements/one_way_wall.tscn" id="10_va4rw"]
+[ext_resource type="PackedScene" uid="uid://cq2m5rxorrnbd" path="res://engine_resources/scenes/level_elements/ending_elevator.tscn" id="11_4j4lq"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x2omg"]
 particles_animation = true
@@ -128,6 +129,7 @@ process_material = SubResource("ParticleProcessMaterial_fb7cv")
 [node name="SpawningElevator" parent="." unique_id=191991557 node_paths=PackedStringArray("BlCamLimtNd", "TrCamLimtNd") instance=ExtResource("7_2kj2y")]
 visible = false
 position = Vector2(64, 576)
+curLv = 1
 BlCamLimtNd = NodePath("../CamLimitBL")
 TrCamLimtNd = NodePath("../CamLimitTR")
 
@@ -293,3 +295,7 @@ offset_top = 464.0
 offset_right = 96.0
 offset_bottom = 472.0
 blockedSide = 1
+
+[node name="EndingElevator" parent="." unique_id=994533981 instance=ExtResource("11_4j4lq")]
+position = Vector2(-436, -868)
+nextLv = 2

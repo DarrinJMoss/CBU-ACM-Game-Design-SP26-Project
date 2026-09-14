@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bc2y2iw4x27o7" path="res://engine_resources/scenes/level_elements/locked_gate.tscn" id="6_iny03"]
 [ext_resource type="PackedScene" uid="uid://supaqy4qqlim" path="res://engine_resources/scenes/level_elements/spawning_elevator.tscn" id="7_ikc4y"]
 [ext_resource type="PackedScene" uid="uid://dnwh5ho3mbrfm" path="res://engine_resources/scenes/music_interface.tscn" id="8_qgx88"]
+[ext_resource type="PackedScene" uid="uid://cq2m5rxorrnbd" path="res://engine_resources/scenes/level_elements/ending_elevator.tscn" id="9_1p5g1"]
 
 [node name="Final level" type="Node2D" unique_id=1182685664]
 
@@ -93,6 +94,7 @@ position = Vector2(1024, 384)
 [node name="SpawningElevator" parent="." unique_id=191991557 instance=ExtResource("7_ikc4y")]
 visible = false
 position = Vector2(216, 656)
+curLv = 4
 
 [node name="MusicInterface" parent="." unique_id=32554531 instance=ExtResource("8_qgx88")]
 curTrack = 1
@@ -100,3 +102,7 @@ deferStart = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=903354283]
 color = Color(1, 0.8949779, 0.8705199, 1)
+
+[node name="EndingElevator" parent="." unique_id=994533981 instance=ExtResource("9_1p5g1")]
+position = Vector2(579, -244)
+nextLv = 6

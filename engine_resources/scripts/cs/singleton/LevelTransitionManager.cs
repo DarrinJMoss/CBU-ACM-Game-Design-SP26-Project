@@ -63,6 +63,7 @@ public partial class LevelTransitionManager : CanvasLayer
     public CcLevelTimestamp     lvTimestamp_5Cannon          = null;
 
     private Global.Levels       _curLevel                   = Global.Levels.TESTING_LEVEL;
+    private Global.Levels       _nxtLevel                   = Global.Levels.TESTING_LEVEL;
     private CcLevelTimestamp    _curTimestamp               = null;
 
     private RichTextLabel       _LB_Header                  = null;
@@ -70,6 +71,9 @@ public partial class LevelTransitionManager : CanvasLayer
     private RichTextLabel       _LB_RHS_TimeTaken           = null;
     private RichTextLabel       _LB_RHS_Rank                = null;
     private UiContainer         _LevelProceedMenu           = null;
+
+    private TextButton          _Proc_NextLv                = null;
+    private TextButton          _Proc_RetryLv               = null;
 
 
     // Called when the node enters the scene tree for the first time.
@@ -88,10 +92,13 @@ public partial class LevelTransitionManager : CanvasLayer
         ShaderRect = GetNode<ColorRect>("Shader");
         if (ShaderRect.Material is ShaderMaterial shader) { shader.SetShaderParameter("alpha", 0.0f); }
 
-        _LB_Header          = GetNode<RichTextLabel>("LevelCompleteTxt");
-        _LB_Lhs             = GetNode<RichTextLabel>("MidLHS");
-        _LB_RHS_Rank        = GetNode<RichTextLabel>("RHSRankTxt");
-        _LB_RHS_TimeTaken   = GetNode<RichTextLabel>("RHSTimeTakenTxt");
+        _LB_Header          = GetNode<RichTextLabel>("LevelCompleteTxt");   _LB_Header       .Hide();
+        _LB_Lhs             = GetNode<RichTextLabel>("MidLHS");             _LB_Lhs          .Hide();
+        _LB_RHS_Rank        = GetNode<RichTextLabel>("RHSRankTxt");         _LB_RHS_Rank     .Hide();
+        _LB_RHS_TimeTaken   = GetNode<RichTextLabel>("RHSTimeTakenTxt");    _LB_RHS_TimeTaken.Hide();
+
+        _Proc_NextLv        = GetNode<TextButton>("%Proc_NextLv");  _Proc_NextLv.TbPressed  += _ButtonPressed;
+        _Proc_RetryLv       = GetNode<TextButton>("%Proc_RetryLv"); _Proc_RetryLv.TbPressed += _ButtonPressed;
     
         _LB_Header          .Hide();
         _LB_Lhs             .Hide();
@@ -102,12 +109,7 @@ public partial class LevelTransitionManager : CanvasLayer
 
         _curLevel = Global.Levels.LV1_FACILITY;
 
-        _curTimestamp = new CcLevelTimestamp
-        {
-            rawTime = 180.0
-        };
-
-        _ = CheckoutTimestamp(Global.Levels.LV2_ICE);
+        //_ = CheckoutTimestamp(Global.Levels.LV2_ICE);
 
     }
 
@@ -145,12 +147,22 @@ public partial class LevelTransitionManager : CanvasLayer
 
     public void OpenTimestamp(Global.Levels lvID)
     {
-        this._curTimestamp = new CcLevelTimestamp();
-        this._curLevel = lvID;
+        GD.Print(this._curTimestamp);
+        if (this._curTimestamp == null)
+        {
+            GD.Print($"Opening timestamp for {lvID}");
+            this._curTimestamp = new CcLevelTimestamp();
+            this._curLevel = lvID;
+        }
+        else
+        {
+            GD.Print("Attempting to open timestamp, but it's already open!");
+        }
     }
 
     public async Task CheckoutTimestamp(Global.Levels nextLvID)
     {
+        _nxtLevel = nextLvID;
         CcLevelTimestamp displayTimestamp = new CcLevelTimestamp();
         _curTimestamp.ComputeMSF();
 
@@ -176,7 +188,7 @@ public partial class LevelTransitionManager : CanvasLayer
                 break;
         }
 
-        await ToSignal(GetTree().CreateTimer(5.0f), Timer.SignalName.Timeout);
+        await ToSignal(GetTree().CreateTimer(0.5f), Timer.SignalName.Timeout);
 
         _resultsOpen = true;
 
@@ -254,15 +266,47 @@ public partial class LevelTransitionManager : CanvasLayer
 
         await ToSignal(GetTree().CreateTimer(0.5f), Timer.SignalName.Timeout);
 
-        _LB_Lhs.Text = "TIME TAKEN:\nRANK:";
-
-        await ToSignal(GetTree().CreateTimer(0.5f), Timer.SignalName.Timeout);
-
-        _LB_RHS_Rank.Text = "[color=yellow][shake]Beans"; _LB_RHS_Rank.Show();
-
-        await ToSignal(GetTree().CreateTimer(0.5f), Timer.SignalName.Timeout);
+        GD.Print(_LevelProceedMenu);
 
         UiManager.i.UiWipeStack(); UiManager.i.UiPush(_LevelProceedMenu);
 
+        foreach (string s in UiManager.i.GetStackNames())
+        {
+            GD.Print(s);
+        }
+
     }
+
+
+    private void _ButtonPressed(string caller, string[] args)
+    {
+        switch (caller)
+        {
+            case "Proc_NextLv":
+                this._curLevel = _nxtLevel;
+                Global.i.BeginGame(_nxtLevel);
+                break;
+            case "Proc_RetryLv":
+                Global.i.BeginGame(_curLevel);
+                break;
+
+            default:
+                break;
+        }
+
+        UiManager.i.UiWipeStack();
+        this._resultsOpen = false;
+
+        _LB_Header          .Hide();
+        _LB_Lhs             .Hide();
+        _LB_RHS_Rank        .Hide();
+        _LB_RHS_TimeTaken   .Hide();
+
+    }
+
+    public void NullifyTimestamp()
+    {
+        this._curTimestamp = null;
+    }
+    
 }

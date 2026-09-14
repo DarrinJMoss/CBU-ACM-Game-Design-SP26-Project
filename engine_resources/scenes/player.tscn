@@ -323,6 +323,7 @@ process_material = ExtResource("2_xntdt")
 [node name="UI" type="CanvasLayer" parent="." unique_id=1267999116]
 
 [node name="Speed" type="Label" parent="UI" unique_id=1750987772]
+visible = false
 offset_left = 25.0
 offset_top = 19.0
 offset_right = 149.0

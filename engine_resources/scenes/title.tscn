@@ -60,10 +60,6 @@ script = ExtResource("6_3b8g6")
 targetMenuPath = NodePath("../../../Settings")
 metadata/_custom_type_script = "uid://nh4fy6j0v0sm"
 
-[sub_resource type="Resource" id="Resource_quxev"]
-script = ExtResource("5_trf5k")
-metadata/_custom_type_script = "uid://cpy7hdwj136w"
-
 [sub_resource type="Resource" id="Resource_3b8g6"]
 script = ExtResource("6_3b8g6")
 targetMenuPath = NodePath("../../../QuitAYS")
@@ -395,27 +391,6 @@ script = ExtResource("4_ume8s")
 Manager = NodePath("../..")
 buttonText = "Settings"
 behavior = SubResource("Resource_qeggv")
-metadata/_custom_type_script = "uid://cqt4ji4c285nr"
-
-[node name="Main_Credits" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=979522707 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
-clip_contents = false
-layout_mode = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_outline_size = 0
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_constants/outline_size = 0
-theme_override_fonts/normal_font = ExtResource("2_c5xkf")
-theme_override_font_sizes/normal_font_size = 69
-bbcode_enabled = true
-text = "Credits"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-script = ExtResource("4_ume8s")
-Manager = NodePath("../..")
-buttonText = "Credits"
-behavior = SubResource("Resource_quxev")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Main_Quit" type="RichTextLabel" parent="MenuRoots/Menu/MainContainer" unique_id=1963912072 node_paths=PackedStringArray("Manager") groups=["Buttons"]]

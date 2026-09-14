@@ -202,7 +202,7 @@ scroll_active = false
 autowrap_mode = 0
 script = ExtResource("7_5f0ee")
 Manager = NodePath("../..")
-buttonText = "Suicide (dbg)"
+buttonText = "Suicide"
 behavior = SubResource("Resource_cqtc2")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 

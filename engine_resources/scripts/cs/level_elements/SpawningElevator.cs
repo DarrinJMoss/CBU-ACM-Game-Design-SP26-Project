@@ -3,6 +3,7 @@ using System;
 
 public partial class SpawningElevator : Node2D
 {
+    [Export] Global.Levels curLv;
     [Export] private Node2D BlCamLimtNd = null;
     [Export] private Node2D TrCamLimtNd = null;
 
@@ -14,10 +15,13 @@ public partial class SpawningElevator : Node2D
 
     public async override void _Ready()
     {
+        LevelTransitionManager.i.NullifyTimestamp();
         
         AnimationPlayer a = GetNode<AnimationPlayer>("Anim");
         ColorRect shade = GetNode<ColorRect>("Shade"); shade.Color = Colors.Black;
-        
+
+        a.Play("RESET");
+
         this.Show();
 
         Player localPRef = GetNode<Player>("Player");
@@ -77,6 +81,8 @@ public partial class SpawningElevator : Node2D
         localPRef.ExitElevator(GetParent());
 
         Global.i.PlayerRef.PCamRef.MakeCurrent();
+
+        LevelTransitionManager.i.OpenTimestamp(curLv);
 
         foreach (Node n in GetParent().GetChildren())
         {

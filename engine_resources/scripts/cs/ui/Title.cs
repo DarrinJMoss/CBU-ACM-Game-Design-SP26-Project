@@ -69,13 +69,13 @@ public partial class Title : CanvasLayer
 
             // Level Select
             case "Main_NewGame":
-                _BeginGame(Global.Levels.LV1_FACILITY);
+                Global.i.BeginGame(Global.Levels.LV1_FACILITY);
                 break;
             case "Levels_1":
-                _BeginGame(Global.Levels.LV1_FACILITY);
+                Global.i.BeginGame(Global.Levels.LV1_FACILITY);
                 break;
             case "Levels_2":
-                _BeginGame(Global.Levels.LV2_ICE);
+                Global.i.BeginGame(Global.Levels.LV2_ICE);
                 break;
             case "Levels_3":
                 /*
@@ -86,7 +86,7 @@ public partial class Title : CanvasLayer
                     D <  3:30
                     F >= 3:30
                 */
-                _BeginGame(Global.Levels.LV3_SLIME);
+                Global.i.BeginGame(Global.Levels.LV3_SLIME);
                 break;
             case "Levels_4":
                 /*
@@ -97,7 +97,7 @@ public partial class Title : CanvasLayer
                     D <  3:00
                     F >= 3:30
                 */
-                _BeginGame(Global.Levels.LV4_BOUNCE);
+                Global.i.BeginGame(Global.Levels.LV4_BOUNCE);
                 break;
             case "Levels_5":
                 /*
@@ -108,7 +108,7 @@ public partial class Title : CanvasLayer
                     D <  2:45
                     F >= 2:45
                 */
-                _BeginGame(Global.Levels.LV5_CANNONS);
+                Global.i.BeginGame(Global.Levels.LV5_CANNONS);
                 break;
 
             // Quit AYS
@@ -120,34 +120,6 @@ public partial class Title : CanvasLayer
                 break;
         }
 
-    }
-
-
-    private void _BeginGame(Global.Levels lvIdx)
-    {
-        GD.Print($"lvIdx : {lvIdx.ToString()}");
-        UiManager.i.UiWipeStack();
-        switch (lvIdx)
-        {
-            case Global.Levels.LV1_FACILITY:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/1_complex.tscn");
-                break;
-            case Global.Levels.LV2_ICE:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/2_ice.tscn");
-                break;
-            case Global.Levels.LV3_SLIME:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/3_slime.tscn");
-                break;
-            case Global.Levels.LV4_BOUNCE:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/4_bounce.tscn");
-                break;
-            case Global.Levels.LV5_CANNONS:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/5_cannon.tscn");
-                break;
-            default:
-                GetTree().ChangeSceneToFile("res://engine_resources/scenes/levels/test_level.tscn");
-                break;
-        }
     }
 
     private void _ShowCredits()

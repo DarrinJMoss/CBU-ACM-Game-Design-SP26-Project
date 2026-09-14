@@ -67,7 +67,7 @@ public partial class PauseMenu : CanvasLayer
 
     public override void _Input(InputEvent @event)
     {
-        if (Input.IsActionJustPressed("Pause")) 
+        if (Input.IsActionJustPressed("Pause") && Global.i.PlayerRef != null && Global.i.PlayerRef.controlEnabled) 
         {
             if (GetTree().Paused)
             {

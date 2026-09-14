@@ -26,6 +26,7 @@ Global="*uid://qjifuov62dso"
 UiManager="*uid://cpl812omsbgd0"
 Cursor="*uid://du1hq21y2n3ho"
 OneshotParticleManager="*uid://dxb4rpdilwpey"
+LevelTransitionManager="*uid://17kuy8f3pmni"
 
 [display]
 

@@ -374,7 +374,6 @@ public partial class Player : CharacterBody2D
 
         if (boostedThisFrame)
         {
-            GD.Print("PLayer.");
             JetpackSfx.PitchScale = 2.0f - 1.0f * (currentFuel / 100.0f);
             if (!JetpackSfx.Playing)
             {
@@ -914,6 +913,12 @@ public partial class Player : CharacterBody2D
             }
         }
         return str.Substring(idx);
+    }
+
+    public void FREEZEE()
+    {
+        Velocity = Vector2.Zero;
+        curVel = Vector2.Zero;
     }
 
 }

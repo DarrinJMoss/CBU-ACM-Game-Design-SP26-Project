@@ -142,6 +142,7 @@ offset_bottom = 40.0
 script = ExtResource("3_6tkxj")
 
 [node name="Proc_NextLv" type="RichTextLabel" parent="LevelProceedOptions" unique_id=2070894368 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+unique_name_in_owner = true
 clip_contents = false
 layout_mode = 0
 offset_top = 531.0
@@ -168,6 +169,7 @@ behavior = SubResource("Resource_4xpa6")
 metadata/_custom_type_script = "uid://cqt4ji4c285nr"
 
 [node name="Proc_RetryLv" type="RichTextLabel" parent="LevelProceedOptions" unique_id=1537857065 node_paths=PackedStringArray("Manager") groups=["Buttons"]]
+unique_name_in_owner = true
 clip_contents = false
 layout_mode = 0
 offset_top = 600.0

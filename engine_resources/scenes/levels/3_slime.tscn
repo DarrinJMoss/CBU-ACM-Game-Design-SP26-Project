@@ -5,11 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://2yl3j6lu1jp2" path="res://engine_resources/scenes/levels/debug_tilemap.tscn" id="3_66qil"]
 [ext_resource type="PackedScene" uid="uid://3455hwbyyjlp" path="res://engine_resources/scenes/level_elements/fuel_pickup.tscn" id="4_0hhr2"]
 [ext_resource type="PackedScene" uid="uid://cpm0gr6e8uvf7" path="res://engine_resources/scenes/level_elements/key.tscn" id="5_8fj1n"]
-[ext_resource type="PackedScene" uid="uid://jtq13ag0ggdr" path="res://engine_resources/scenes/level_elements/portal.tscn" id="6_p7raf"]
 [ext_resource type="PackedScene" uid="uid://supaqy4qqlim" path="res://engine_resources/scenes/level_elements/spawning_elevator.tscn" id="7_o0rli"]
 [ext_resource type="PackedScene" uid="uid://djc1qwai7xod3" path="res://engine_resources/scenes/levels/visual_tiles.tscn" id="7_q1vnm"]
 [ext_resource type="PackedScene" uid="uid://dnwh5ho3mbrfm" path="res://engine_resources/scenes/music_interface.tscn" id="7_tveky"]
 [ext_resource type="PackedScene" uid="uid://bc2y2iw4x27o7" path="res://engine_resources/scenes/level_elements/locked_gate.tscn" id="10_dow78"]
+[ext_resource type="PackedScene" uid="uid://cq2m5rxorrnbd" path="res://engine_resources/scenes/level_elements/ending_elevator.tscn" id="10_wcq5c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfr6g"]
 size = Vector2(10.8125, 30.5)
@@ -102,12 +102,6 @@ position = Vector2(2534, -354)
 keyColor = 2
 
 [node name="Node2D" type="Node2D" parent="Pickups" unique_id=1599858704]
-
-[node name="Portal" parent="Pickups/Node2D" unique_id=618102656 instance=ExtResource("6_p7raf")]
-offset_left = 3102.0
-offset_top = -1172.0
-offset_right = 3128.5
-offset_bottom = -1132.5
 
 [node name="Slime" type="Node2D" parent="." unique_id=701686217]
 visible = false
@@ -462,6 +456,7 @@ tile_map_data = PackedByteArray("AACK/zAAAAAAAAAAAACK/zEAAAAAAAAAAACK/zIAAAAAAAA
 [node name="SpawningElevator" parent="." unique_id=191991557 node_paths=PackedStringArray("BlCamLimtNd", "TrCamLimtNd") instance=ExtResource("7_o0rli")]
 visible = false
 position = Vector2(-1476, 1808)
+curLv = 2
 BlCamLimtNd = NodePath("../bl")
 TrCamLimtNd = NodePath("../tr")
 
@@ -481,3 +476,7 @@ offset_right = 943.6
 offset_bottom = 130.66669
 partnerKey = NodePath("../Pickups/Key/Key")
 allowAirUnlock = false
+
+[node name="EndingElevator" parent="." unique_id=994533981 instance=ExtResource("10_wcq5c")]
+position = Vector2(1280, -84)
+nextLv = 3
