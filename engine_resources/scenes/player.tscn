@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://bdfq053q32hqm" path="res://streamed_assets/audio/sfx/step.wav" id="11_juhc5"]
 [ext_resource type="AudioStream" uid="uid://bsubww8qwa3ga" path="res://streamed_assets/audio/sfx/jetpack.wav" id="12_k2hxy"]
 [ext_resource type="AudioStream" uid="uid://ddvix256ccf8v" path="res://streamed_assets/audio/sfx/kablooey_edited.mp3" id="13_babpn"]
+[ext_resource type="Texture2D" uid="uid://dypsd06befhkh" path="res://streamed_assets/textures/light/key_light.png" id="15_4ldgd"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_hmd2p"]
 radius = 0.4
@@ -201,6 +202,28 @@ radius = 8.062258
 [sub_resource type="CircleShape2D" id="CircleShape2D_bh68d"]
 radius = 9.0
 
+[sub_resource type="Curve" id="Curve_2ap5n"]
+_data = [Vector2(0, 0.000826478), 0.0, 0.0, 0, 0, Vector2(0.23194748, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.310655, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4ldgd"]
+curve = SubResource("Curve_2ap5n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_juhc5"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(7, 0, 1)
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+damping_max = 35.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_4ldgd")
+color = Color(1, 0.6315369, 0.8393943, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=1248458229 node_paths=PackedStringArray("UI_FuelIndicator", "UI_Speed", "GraphicsRoot", "PT_SkidParticles", "PT_WalkParticles", "PT_ThrusterL", "PT_ThrusterR", "DB_RespawnLocation", "DB_AngleIndicator", "Anim", "PSpriteTorso", "PSpriteLegs", "PSpriteJetpack", "JumpSfx", "StepSfx", "LandSfx", "JetpackSfx", "JeckpackLaunchSfx")]
 z_index = 5
 texture_filter = 1
@@ -335,6 +358,7 @@ texture = ExtResource("2_bh68d")
 offset = Vector2(63, 0)
 
 [node name="RespawnCube" type="ColorRect" parent="." unique_id=645856726]
+visible = false
 offset_left = -4.0
 offset_top = -4.0
 offset_right = 4.0
@@ -414,6 +438,20 @@ volume_db = -3.915
 stream = ExtResource("13_babpn")
 
 [node name="CanvasLayer" parent="." unique_id=948364920 instance=ExtResource("5_tj1qa")]
+
+[node name="ChargeParticles" type="GPUParticles2D" parent="." unique_id=229299617]
+position = Vector2(0, 9)
+amount = 24
+randomness = 0.25
+process_material = SubResource("ParticleProcessMaterial_juhc5")
+
+[node name="Light" type="PointLight2D" parent="ChargeParticles" unique_id=1954091782]
+position = Vector2(0, -2)
+color = Color(0.9999973, 0.17922395, 0.73928183, 1)
+energy = 0.3
+shadow_enabled = true
+texture = ExtResource("15_4ldgd")
+texture_scale = 1.5
 
 [connection signal="body_entered" from="HazardDetector" to="." method="_HandleHazardDetector"]
 [connection signal="body_entered" from="SafetyDetector" to="." method="_HandleSafetyDetectorEnter"]

@@ -181,3 +181,5 @@ frame = 2
 
 [node name="Anim" type="AnimationPlayer" parent="." unique_id=1205040066]
 libraries/ = SubResource("AnimationLibrary_3nto5")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=652325977]

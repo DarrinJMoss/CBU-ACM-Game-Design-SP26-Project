@@ -44,6 +44,5 @@ stream = ExtResource("4_kod4h")
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=240441438]
 color = Color(1, 1, 0, 1)
 energy = 0.2
-shadow_enabled = true
 texture = ExtResource("5_kod4h")
 texture_scale = 1.5

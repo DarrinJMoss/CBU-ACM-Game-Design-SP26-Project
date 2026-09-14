@@ -66,6 +66,7 @@ public partial class Player : CharacterBody2D
 
   	/******* Ice Vars *****/
 	private bool isOnSlide = false;
+    private bool onSlipperySlope = false;
 
     /**************** Fuel Variables *****************/
     private const float MAX_FUEL = 100.0f;              // * Delta
@@ -189,13 +190,20 @@ public partial class Player : CharacterBody2D
             _Move(curVel);
             return;
         }
+        
 
         // Floor stuff
         if (this.IsOnFloor()) {
+
+            GD.Print(GetFloorAngle()); GD.Print(GetFloorNormal());
+
             if (wasInAir)
             {
                 wasInAir = false;
-                curVel.Y = GRAVITY * deltaRef;
+                if (!isOnSlide)
+                {
+                    curVel.Y = GRAVITY * deltaRef;
+                }
                 angularVelocity = 0.0f;
                 isExitingCannon = false; // Re-enable controls when landing
             }
@@ -221,8 +229,10 @@ public partial class Player : CharacterBody2D
                 return;
             }
 
+            GD.Print($"El anglei! {GetFloorAngle()}");
+
             // Ground Movement
-            float xInput = Input.GetAxis("MoveLeft", "MoveRight"); 
+            float xInput = controlEnabled ? Input.GetAxis("MoveLeft", "MoveRight") : 0.0f;
             if (Mathf.Abs(xInput) >= Global.CONTROLLER_DEADZONE)
             {
                 // Give a turnaround boost in the event that you want to go in the
@@ -242,15 +252,31 @@ public partial class Player : CharacterBody2D
     					curVel.X = Mathf.MoveToward(curVel.X, WALKING_SPEED * Mathf.Sign(xInput), accel * deltaRef);
     				}
     			}
-    		} else
+    		} 
+            else if (isOnSlide && GetFloorAngle() > 0.7)
     		{
+                GD.Print("Slippery!");
+                onSlipperySlope = true;
     			xInput = 0.0f;
-    			curVel.X = Mathf.MoveToward(curVel.X, 0.0f, decel * deltaRef);
+                curVel += Gravity() * deltaRef;
+    			curVel = curVel.MoveToward(new Vector2(WALKING_SPEED * GetFloorNormal().X, SPEED_HARDCAP), decel * 25.0f * deltaRef);
     		}
+            else
+            {
+                GD.Print("Avg!");
+                onSlipperySlope = false;
+                xInput = 0.0f;
+    			curVel.X = Mathf.MoveToward(curVel.X, 0.0f, decel * deltaRef);
+            }
     
 
     		if (Input.IsActionJustPressed("Jump") && controlEnabled)
     		{
+                if (onSlipperySlope)
+                {
+                    onSlipperySlope = false;
+                    curVel.X = this.Velocity.X;
+                }
     			curVel.Y = -JUMP_VELOCITY;
     			OneshotParticleManager.i.SpawnParticleAsChild(OneshotParticleManager.ParticleTypes.LAND_JUMP, this, new Vector2(0.0f, 11.0f), 0.0f, 5);
     		}
@@ -259,6 +285,7 @@ public partial class Player : CharacterBody2D
     	// Air Stuff
     	else
     	{
+
     		if (!wasInAir)
     		{
     			wasInAir = true;
@@ -443,8 +470,17 @@ public partial class Player : CharacterBody2D
         	}
         }
 
-        this.MoveAndSlide();
-
+        if (onSlipperySlope)
+        {
+            FloorSnapLength = onSlipperySlope ? 128.0f : 8.0f;
+            this.Velocity = new Vector2(this.Velocity.X, SPEED_SOFTCAP - 1.0f);
+            this.MoveAndSlide();
+        }
+        else
+        {
+            this.MoveAndSlide();
+        }
+        
         /******** ICE/SLIDE  ********/
 		// Loop through every surface the player is touching this frame
 		isOnSlide = false;
@@ -524,6 +560,18 @@ public partial class Player : CharacterBody2D
 
     private void _Animate()
     {
+
+        if (isSafe && IsOnFloor() && controlEnabled)
+        {
+            GetNode<GpuParticles2D>("ChargeParticles")      .Emitting   = true;
+            GetNode<PointLight2D>("ChargeParticles/Light")  .Enabled    = true;
+        }
+        else
+        {
+            GetNode<GpuParticles2D>("ChargeParticles")      .Emitting   = false;
+            GetNode<PointLight2D>("ChargeParticles/Light")  .Enabled    = false;
+        }
+
         if (jetpackPitch >= JETPACK_PITCH_THRESHH)
         {
             JetpackSfx.PitchScale = jetpackPitch;
@@ -578,7 +626,11 @@ public partial class Player : CharacterBody2D
 
 
         string color;
-        if (currentFuel > 50.0f)
+        if (isSafe && IsOnFloor() && controlEnabled)
+        {
+            color = "[color=#FF54C1]";
+        }
+        else if (currentFuel > 50.0f)
         {
             color = "";
         }
@@ -603,7 +655,7 @@ public partial class Player : CharacterBody2D
         }
         else
         {
-            if (isSafe && IsOnFloor())
+            if (isSafe && IsOnFloor() && controlEnabled)
             {
                 fuelTargetAlpha = 1.0f;
             }
