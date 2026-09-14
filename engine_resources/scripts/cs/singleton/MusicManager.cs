@@ -10,6 +10,8 @@ public partial class MusicManager : Node
     const string TRACKPATH_STAGE_ICE_MENU       = "res://streamed_assets/audio/music/stage_ice_menu.ogg";
     const string TRACKPATH_STAGE_SLIME          = "res://streamed_assets/audio/music/stage_slime.ogg";
     const string TRACKPATH_STAGE_SLIME_MENU     = "res://streamed_assets/audio/music/stage_slime_menu.ogg";
+    const string TRACKPATH_STAGE_BOUNCE         = "res://streamed_assets/audio/music/stage_bounce.ogg";
+    const string TRACKPATH_STAGE_BOUNCE_MENU    = "res://streamed_assets/audio/music/stage_bounce_menu.ogg";
 
     private class MusicTrack
     {
@@ -50,6 +52,7 @@ public partial class MusicManager : Node
         STAGE_1,
         STAGE_ICE,
         STAGE_SLIME,
+        STAGE_BOUNCE,
         TRACK_COUNT,
         SILENT      = 99
     }
@@ -77,6 +80,7 @@ public partial class MusicManager : Node
         tracklist[(int)Tracks.STAGE_1]      = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_1),       GD.Load<AudioStream>(TRACKPATH_STAGE_1_MENU));
         tracklist[(int)Tracks.STAGE_ICE]    = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_ICE),     GD.Load<AudioStream>(TRACKPATH_STAGE_ICE_MENU));
         tracklist[(int)Tracks.STAGE_SLIME]  = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_SLIME),   GD.Load<AudioStream>(TRACKPATH_STAGE_SLIME_MENU));
+        tracklist[(int)Tracks.STAGE_BOUNCE] = new MusicTrack(GD.Load<AudioStream>(TRACKPATH_STAGE_BOUNCE),  GD.Load<AudioStream>(TRACKPATH_STAGE_BOUNCE_MENU));
 
 
         mPlayer_main = GetNode<AudioStreamPlayer>("%MPlayerMain"); mPlayer_main.Playing = true;

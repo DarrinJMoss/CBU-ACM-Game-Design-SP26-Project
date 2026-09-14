@@ -195,8 +195,6 @@ public partial class Player : CharacterBody2D
         // Floor stuff
         if (this.IsOnFloor()) {
 
-            GD.Print(GetFloorAngle()); GD.Print(GetFloorNormal());
-
             if (wasInAir)
             {
                 wasInAir = false;
@@ -205,6 +203,7 @@ public partial class Player : CharacterBody2D
                     curVel.Y = GRAVITY * deltaRef;
                 }
                 angularVelocity = 0.0f;
+                LandSfx.Play();
                 isExitingCannon = false; // Re-enable controls when landing
             }
 
@@ -228,8 +227,6 @@ public partial class Player : CharacterBody2D
                 _TriggerRecovery();
                 return;
             }
-
-            GD.Print($"El anglei! {GetFloorAngle()}");
 
             // Ground Movement
             float xInput = controlEnabled ? Input.GetAxis("MoveLeft", "MoveRight") : 0.0f;
@@ -255,7 +252,6 @@ public partial class Player : CharacterBody2D
     		} 
             else if (isOnSlide && GetFloorAngle() > 0.7)
     		{
-                GD.Print("Slippery!");
                 onSlipperySlope = true;
     			xInput = 0.0f;
                 curVel += Gravity() * deltaRef;
@@ -263,7 +259,6 @@ public partial class Player : CharacterBody2D
     		}
             else
             {
-                GD.Print("Avg!");
                 onSlipperySlope = false;
                 xInput = 0.0f;
     			curVel.X = Mathf.MoveToward(curVel.X, 0.0f, decel * deltaRef);
@@ -272,6 +267,7 @@ public partial class Player : CharacterBody2D
 
     		if (Input.IsActionJustPressed("Jump") && controlEnabled)
     		{
+                JumpSfx.Play();
                 if (onSlipperySlope)
                 {
                     onSlipperySlope = false;
@@ -324,6 +320,7 @@ public partial class Player : CharacterBody2D
     		// Boost
     		if ((currentFuel >= BOOST_COST) && canBoost && Input.IsActionJustPressed("Boost") && !isInCannon && !exitedCannonThisFrame)
     		{
+                JeckpackLaunchSfx.Play();
     			canBoost = false;
     			if (this.IsOnFloor()) 
     			{
@@ -375,12 +372,27 @@ public partial class Player : CharacterBody2D
         {
         }
 
+        if (boostedThisFrame)
+        {
+            GD.Print("PLayer.");
+            JetpackSfx.PitchScale = 2.0f - 1.0f * (currentFuel / 100.0f);
+            if (!JetpackSfx.Playing)
+            {
+                JetpackSfx.Play();
+            }
+        }
+        else
+        {
+            JetpackSfx.Stop();
+        }
+
         exitedCannonThisFrame = false;
 
         _Move(curVel);
         _Animate();
     }
 
+    
 
     // Dereference the player reference in Global.cs and queue
     // free for the player.

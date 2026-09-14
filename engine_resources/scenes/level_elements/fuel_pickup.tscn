@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://3455hwbyyjlp"]
 
 [ext_resource type="Script" uid="uid://bawou1i2ocmvp" path="res://engine_resources/scripts/cs/level_elements/FuelPickup.cs" id="1_ulud6"]
-
+[ext_resource type="Texture2D" uid="uid://dypsd06befhkh" path="res://streamed_assets/textures/light/key_light.png" id="2_p28mj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_801ib"]
 radius = 28.0
@@ -22,8 +22,15 @@ collision_mask = 4
 shape = SubResource("CircleShape2D_801ib")
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1329852550]
-modulate = Color(0.5019608, 1, 0, 1)
+modulate = Color(1, 0.32941177, 0.75686276, 1)
 scale = Vector2(45, 45)
 mesh = SubResource("SphereMesh_ulud6")
+
+[node name="Light" type="PointLight2D" parent="." unique_id=890452611]
+color = Color(0.9999973, 0.17922395, 0.73928183, 1)
+energy = 0.3
+shadow_enabled = true
+texture = ExtResource("2_p28mj")
+texture_scale = 3.0
 
 [connection signal="body_entered" from="Detector" to="." method="_BodyDetected"]

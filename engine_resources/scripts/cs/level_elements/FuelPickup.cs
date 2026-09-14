@@ -61,12 +61,14 @@ public partial class FuelPickup : Node2D
 	{
 		isDisabled = true;
 		Graphic.Hide();
+        GetNode<PointLight2D>("Light").Enabled = false;
 	}
 	public void Enable()
 	{
 		sineVal = (float)GD.RandRange(0.0, Mathf.Tau);
 		isDisabled = false;
 		Graphic.Show();
+        GetNode<PointLight2D>("Light").Enabled = true;
 	}
 
 }

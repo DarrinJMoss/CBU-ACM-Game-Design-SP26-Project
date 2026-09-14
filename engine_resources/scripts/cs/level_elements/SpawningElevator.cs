@@ -14,17 +14,30 @@ public partial class SpawningElevator : Node2D
 
     public async override void _Ready()
     {
+        
+        AnimationPlayer a = GetNode<AnimationPlayer>("Anim");
+        ColorRect shade = GetNode<ColorRect>("Shade"); shade.Color = Colors.Black;
+        
+        this.Show();
+
         Player localPRef = GetNode<Player>("Player");
         localPRef.controlEnabled = false;
 
-        Camera2D localCam = GetNode<Camera2D>("Camera2D");
-        localCam.Enabled = false;
+        a.Play("Intro");
+
+        for (int i = 0; i < 1; i++)
+        {
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
 
         localPRef.PCamRef.MakeCurrent();
 
         localPRef.PCamRef.LimitEnabled  = true;
         localPRef.PCamRef.LimitSmoothed = true;
 
+        Tween camTween = GetTree().CreateTween(); camTween.SetTrans(Tween.TransitionType.Quint); camTween.SetEase(Tween.EaseType.In);
+
+        
         localPRef.PCamRef.LimitLeft     = (BlCamLimtNd != null) ? (int)BlCamLimtNd.GlobalPosition.X : -10000000;
         localPRef.PCamRef.LimitBottom   = (BlCamLimtNd != null) ? (int)BlCamLimtNd.GlobalPosition.Y :  10000000;
 
@@ -35,11 +48,15 @@ public partial class SpawningElevator : Node2D
         GD.Print(localPRef.PCamRef.LimitBottom  );
         GD.Print(localPRef.PCamRef.LimitLeft    );
         GD.Print(localPRef.PCamRef.LimitRight   );
+
+        localPRef.PCamRef.Zoom = Vector2.One * 0.5f;
+
         
-        AnimationPlayer a = GetNode<AnimationPlayer>("Anim");
-        ColorRect shade = GetNode<ColorRect>("Shade"); shade.Color = Colors.Black;
-        
-        this.Show();
+        camTween.TweenProperty(localPRef.PCamRef, "zoom", new Vector2(1.1f, 1.1f), a.CurrentAnimationLength);
+
+        await ToSignal(a, AnimationPlayer.SignalName.AnimationFinished);
+
+        a.Play("Shake");
 
         localPRef.PCamRef.SetShake(LAND_SHAKE_AMNT, LAND_SHAKE_DAMP);
     
@@ -58,6 +75,8 @@ public partial class SpawningElevator : Node2D
         localPRef.controlEnabled = true;
 
         localPRef.ExitElevator(GetParent());
+
+        Global.i.PlayerRef.PCamRef.MakeCurrent();
 
         foreach (Node n in GetParent().GetChildren())
         {

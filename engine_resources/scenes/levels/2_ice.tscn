@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://supaqy4qqlim" path="res://engine_resources/scenes/level_elements/spawning_elevator.tscn" id="7_2kj2y"]
 [ext_resource type="Texture2D" uid="uid://cieoyr67sqtjt" path="res://streamed_assets/textures/particles/ice.png" id="7_ot7vw"]
 [ext_resource type="PackedScene" uid="uid://djc1qwai7xod3" path="res://engine_resources/scenes/levels/visual_tiles.tscn" id="9_x2omg"]
+[ext_resource type="PackedScene" uid="uid://c8suttu74hgip" path="res://engine_resources/scenes/level_elements/one_way_wall.tscn" id="10_va4rw"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x2omg"]
 particles_animation = true
@@ -286,3 +287,9 @@ position = Vector2(-664, 768)
 
 [node name="CamLimitTR" type="Marker2D" parent="." unique_id=784171840]
 position = Vector2(2016, -1000)
+
+[node name="OneWayWall" parent="." unique_id=618102656 instance=ExtResource("10_va4rw")]
+offset_top = 464.0
+offset_right = 96.0
+offset_bottom = 472.0
+blockedSide = 1
